@@ -9,7 +9,7 @@
         aria-labelledby="descId"
       >
         <title id="titleId">Bad3r's GitHub Stats, Rank: A+</title>
-        <desc id="descId">Total Stars Earned: 285, Total Commits  : 4702, Total PRs: 1627, Total Issues: 320, Contributed to (last year): 26</desc>
+        <desc id="descId">Total Stars Earned: 285, Total Commits  : 4706, Total PRs: 1628, Total Issues: 320, Contributed to (last year): 26</desc>
         <style>
           .header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
@@ -73,7 +73,7 @@
         stroke-dashoffset: 251.32741228718345;
       }
       to {
-        stroke-dashoffset: 15.741655548815595;
+        stroke-dashoffset: 15.73719971367007;
       }
     }
   
