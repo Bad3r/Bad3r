@@ -1,0 +1,53 @@
+name: Update README cards
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/profile-cards.yml
+      - scripts/generate_cards.py
+  workflow_dispatch:
+
+concurrency:
+  group: profile-cards
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Generate cards
+        env:
+          # GITHUB_TOKEN cannot see private contribution counts. Set a
+          # PROFILE_TOKEN secret (classic PAT, read:user + repo) to include them.
+          GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
+          LOGIN: ${{ github.repository_owner }}
+        run: |
+          python3 scripts/generate_cards.py \
+            --login "$LOGIN" \
+            --out-dir profile \
+            --dark-theme github_dark_dimmed \
+            --light-theme default \
+            --langs-count 6 \
+            --hide-langs 'HTML,CSS,XSLT,Perl,Vim Script,Scheme,Roff,CMake,Vue,Astro' \
+            --exclude-repos 'odd-etc-backup'
+
+      - name: Commit cards
+        run: |
+          set -eu
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile/*.svg
+          if git diff --cached --quiet; then
+            echo "No README card changes to commit"
+            exit 0
+          fi
+          git commit -m "Update README cards"
+          git push
