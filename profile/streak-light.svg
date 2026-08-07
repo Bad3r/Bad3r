@@ -9,7 +9,7 @@
   aria-labelledby="titleId descId"
 >
   <title id="titleId">GitHub contribution streak</title>
-  <desc id="descId">Total contributions: 16,496, current streak: 34 days, longest streak: 47 days</desc>
+  <desc id="descId">Total contributions: 26,562, current streak: 34 days, longest streak: 47 days</desc>
   <style>
     @keyframes currstreak {
       0% { font-size: 3px; opacity: 0.2; }
@@ -36,7 +36,7 @@
     <line x1="330" y1="28" x2="330" y2="170" vector-effect="non-scaling-stroke" stroke-width="1" stroke="#E4E2E2" stroke-linecap="square" stroke-miterlimit="3" />
     <g>
       <g transform="translate(82.5, 48)">
-        <text x="0" y="32" text-anchor="middle" stroke="none" stroke-width="0" fill="#151515" font-family='"Segoe UI", Ubuntu, sans-serif' font-weight="700" font-size="28px" style="opacity: 0; animation: fadein 0.5s linear forwards 0.6s">16,496</text>
+        <text x="0" y="32" text-anchor="middle" stroke="none" stroke-width="0" fill="#151515" font-family='"Segoe UI", Ubuntu, sans-serif' font-weight="700" font-size="28px" style="opacity: 0; animation: fadein 0.5s linear forwards 0.6s">26,562</text>
       </g>
       <g transform="translate(82.5, 84)">
         <text x="0" y="32" text-anchor="middle" stroke="none" stroke-width="0" fill="#151515" font-family='"Segoe UI", Ubuntu, sans-serif' font-weight="400" font-size="14px" style="opacity: 0; animation: fadein 0.5s linear forwards 0.7s">Total Contributions</text>

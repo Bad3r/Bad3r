@@ -91,6 +91,7 @@ ICONS = {
     "prs": '<path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/>',
     "issues": '<path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"/>',
     "contribs": '<path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/>',
+    "private": '<path d="M4 4a4 4 0 0 1 8 0v2h.25c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0 1 12.25 15h-8.5A1.75 1.75 0 0 1 2 13.25v-5.5C2 6.784 2.784 6 3.75 6H4Zm8.25 3.5h-8.5a.25.25 0 0 0-.25.25v5.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-5.5a.25.25 0 0 0-.25-.25ZM10.5 6V4a2.5 2.5 0 1 0-5 0v2Z"/>',
 }
 
 PROFILE_QUERY = """
@@ -230,14 +231,20 @@ def fetch_repositories(token: str, login: str) -> list[Repository]:
 
 
 def fetch_contributions(token: str, login: str, created_at: dt.datetime, now: dt.datetime) -> dict:
-    """Collect every contribution day plus commit and review totals.
+    """Collect every contribution day plus commit, review and private totals.
 
     contributionsCollection caps a query at one year, so this walks calendar
     years from account creation to now.
+
+    The calendar's per-day counts cover public repositories only. Work in
+    private repositories is withheld from those days and reported solely as the
+    restrictedContributionsCount aggregate, which needs a user token to be
+    non-zero.
     """
     days: dict[str, int] = {}
     commits = 0
     reviews = 0
+    restricted = 0
     for year in range(created_at.year, now.year + 1):
         window_start = max(created_at, dt.datetime(year, 1, 1, tzinfo=dt.timezone.utc))
         window_end = min(now, dt.datetime(year, 12, 31, 23, 59, 59, tzinfo=dt.timezone.utc))
@@ -254,17 +261,21 @@ def fetch_contributions(token: str, login: str, created_at: dt.datetime, now: dt
         )["user"]["contributionsCollection"]
         commits += collection["totalCommitContributions"]
         reviews += collection["totalPullRequestReviewContributions"]
+        restricted += collection["restrictedContributionsCount"]
         for week in collection["contributionCalendar"]["weeks"]:
             for day in week["contributionDays"]:
                 days[day["date"]] = day["contributionCount"]
-    return {"days": days, "commits": commits, "reviews": reviews}
+    return {"days": days, "commits": commits, "reviews": reviews, "restricted": restricted}
 
 
-def compute_streaks(days: dict[str, int]) -> Streaks:
+def compute_streaks(days: dict[str, int], private: int = 0) -> Streaks:
     """Fold the contribution calendar into total, current and longest streaks.
 
     The final day never breaks the current streak: the card is generated before
     the day is over.
+
+    `private` is added to the headline total only. GitHub does not say which
+    days private contributions fall on, so they cannot extend a streak.
     """
     if not days:
         raise GitHubError("Contribution calendar came back empty")
@@ -272,7 +283,7 @@ def compute_streaks(days: dict[str, int]) -> Streaks:
     ordered = sorted(days.items())
     today = dt.date.fromisoformat(ordered[-1][0])
     streaks = Streaks(
-        total_contributions=0,
+        total_contributions=private,
         first_contribution=today,
         today=today,
         current_length=0,
@@ -468,6 +479,10 @@ def render_stats_card(*, theme_name: str, name: str, stats: dict) -> str:
         ("issues", "Total Issues", stats["issues"]),
         ("contribs", "Contributed to", stats["contributed_to"]),
     ]
+    if stats["private"]:
+        # Kept out of Total Commits: GitHub lumps every private contribution
+        # type into one count, so it cannot be attributed to commits alone.
+        rows.insert(2, ("private", "Private Contributions", stats["private"]))
     width, height = CARD_WIDTH, CARD_HEIGHT
     ring_x = width - 76.5
     # Spread the rows over the body so the block sits centred against the ring.
@@ -749,13 +764,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     repositories = fetch_repositories(token, args.login)
     contributions = fetch_contributions(token, args.login, created_at, now)
-    streaks = compute_streaks(contributions["days"])
+    private = contributions["restricted"]
+    streaks = compute_streaks(contributions["days"], private)
 
     stars = sum(repository.stars for repository in repositories)
     issues = profile["openIssues"]["totalCount"] + profile["closedIssues"]["totalCount"]
     prs = profile["pullRequests"]["totalCount"]
+    # The rank models overall activity, so private work counts toward it even
+    # though the card reports it on its own row.
     rank_level, rank_percentile = calculate_rank(
-        commits=contributions["commits"],
+        commits=contributions["commits"] + private,
         prs=prs,
         issues=issues,
         reviews=contributions["reviews"],
@@ -765,6 +783,7 @@ def main(argv: list[str] | None = None) -> int:
     stats = {
         "stars": stars,
         "commits": contributions["commits"],
+        "private": private,
         "prs": prs,
         "issues": issues,
         "contributed_to": profile["repositoriesContributedTo"]["totalCount"],
@@ -794,10 +813,18 @@ def main(argv: list[str] | None = None) -> int:
 
     print(
         f"{name}: rank {rank_level} ({rank_percentile:.2f}%), {stars} stars, "
-        f"{contributions['commits']} commits, {prs} PRs, {issues} issues, "
+        f"{contributions['commits']} public commits, {prs} PRs, {issues} issues, "
         f"{streaks.total_contributions} contributions, "
         f"current streak {streaks.current_length}, longest streak {streaks.longest_length}"
     )
+    if not private:
+        print(
+            "warning: restrictedContributionsCount is 0, so no private contributions were "
+            "counted. Set PROFILE_TOKEN to a classic PAT with repo + read:user scope.",
+            file=sys.stderr,
+        )
+    else:
+        print(f"including {private} private contributions", file=sys.stderr)
     return 0
 
 
