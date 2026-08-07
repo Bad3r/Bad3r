@@ -1,0 +1,80 @@
+<svg
+  width="495"
+  height="195"
+  viewBox="0 0 495 195"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="titleId descId"
+>
+  <title id="titleId">CONTRIBUTION ACTIVITY</title>
+  <desc id="descId">26564 total contributions, current streak 34 days, longest streak 47 days, busiest week 289</desc>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
+    .key {
+      font-size: 8.5px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      fill: #6B6690;
+    }
+    .key-on { fill: #5D5DE6; }
+    .num {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      fill: #211E34;
+    }
+    .val { font-size: 11px; font-weight: 500; fill: #211E34; }
+    .val-dim { font-size: 11px; font-weight: 500; fill: #6B6690; }
+    .in { opacity: 0; animation: in 0.5s ease-out forwards; }
+    @keyframes in {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes wipe {
+      from { width: 0; }
+      to { width: 451px; }
+    }
+    .wipe { animation: wipe 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    @media (prefers-reduced-motion: reduce) {
+      .in { animation: none; opacity: 1; }
+      .wipe { animation: none; }
+    }
+    .ridge-fill { fill: #5D5DE6; opacity: 0.16; }
+    .ridge-line { stroke: #5D5DE6; stroke-width: 1.5; fill: none;
+                   stroke-linejoin: round; stroke-linecap: round; }
+  </style>
+  <rect
+    x="0.5"
+    y="0.5"
+    width="494"
+    height="194"
+    rx="7.5"
+    fill="#F7F6FD"
+    stroke="#DFDCF0"
+  />
+  <text class="key key-on in" x="22" y="27">CONTRIBUTION ACTIVITY</text>
+  <text class="key in" x="473" y="27" text-anchor="end" style="animation-delay: 80ms">26,564 SINCE FEB 2, 2017</text>
+  <line x1="22" y1="38" x2="473" y2="38" stroke="#E3E0F2" />
+    <clipPath id="wipe">
+      <rect class="wipe" x="22" y="56" width="451" height="75" />
+    </clipPath>
+    <g clip-path="url(#wipe)">
+      <path class="ridge-fill" d="M 22.0 113.4 L 30.8 126.9 L 39.7 128.5 L 48.5 122.1 L 57.4 105.2 L 66.2 71.6 L 75.1 107.5 L 83.9 93.4 L 92.7 99.8 L 101.6 117.5 L 110.4 129.5 L 119.3 119.8 L 128.1 122.3 L 137.0 129.0 L 145.8 129.7 L 154.6 130.0 L 163.5 129.0 L 172.3 127.2 L 181.2 130.0 L 190.0 124.4 L 198.9 112.6 L 207.7 124.9 L 216.5 107.2 L 225.4 109.5 L 234.2 110.8 L 243.1 119.8 L 251.9 67.0 L 260.8 99.0 L 269.6 98.8 L 278.5 109.3 L 287.3 116.9 L 296.1 113.4 L 305.0 119.8 L 313.8 126.7 L 322.7 108.7 L 331.5 107.7 L 340.4 108.7 L 349.2 94.2 L 358.0 84.2 L 366.9 64.2 L 375.7 101.1 L 384.6 108.2 L 393.4 118.0 L 402.3 116.2 L 411.1 115.1 L 419.9 120.8 L 428.8 118.7 L 437.6 86.7 L 446.5 119.8 L 455.3 87.8 L 464.2 97.2 L 473.0 56.0 L 473.0 130 L 22 130 Z" />
+      <path class="ridge-line" d="M 22.0 113.4 L 30.8 126.9 L 39.7 128.5 L 48.5 122.1 L 57.4 105.2 L 66.2 71.6 L 75.1 107.5 L 83.9 93.4 L 92.7 99.8 L 101.6 117.5 L 110.4 129.5 L 119.3 119.8 L 128.1 122.3 L 137.0 129.0 L 145.8 129.7 L 154.6 130.0 L 163.5 129.0 L 172.3 127.2 L 181.2 130.0 L 190.0 124.4 L 198.9 112.6 L 207.7 124.9 L 216.5 107.2 L 225.4 109.5 L 234.2 110.8 L 243.1 119.8 L 251.9 67.0 L 260.8 99.0 L 269.6 98.8 L 278.5 109.3 L 287.3 116.9 L 296.1 113.4 L 305.0 119.8 L 313.8 126.7 L 322.7 108.7 L 331.5 107.7 L 340.4 108.7 L 349.2 94.2 L 358.0 84.2 L 366.9 64.2 L 375.7 101.1 L 384.6 108.2 L 393.4 118.0 L 402.3 116.2 L 411.1 115.1 L 419.9 120.8 L 428.8 118.7 L 437.6 86.7 L 446.5 119.8 L 455.3 87.8 L 464.2 97.2 L 473.0 56.0" />
+    </g>
+    <circle class="in" cx="473.0" cy="56.0" r="3" fill="#5D5DE6" style="animation-delay: 900ms" />
+    <line x1="22" y1="130" x2="473" y2="130" stroke="#E3E0F2" />
+    <g class="in" style="animation-delay: 300ms">
+      <text class="num" x="22.0" y="164">34</text>
+      <text class="key" x="22.0" y="181">DAY CURRENT STREAK</text>
+    </g>
+    <g class="in" style="animation-delay: 370ms">
+      <text class="num" x="212.9" y="164">47</text>
+      <text class="key" x="212.9" y="181">DAY LONGEST STREAK</text>
+    </g>
+    <g class="in" style="animation-delay: 440ms">
+      <text class="num" x="403.8" y="164">289</text>
+      <text class="key" x="403.8" y="181">BUSIEST WEEK</text>
+    </g>
+</svg>

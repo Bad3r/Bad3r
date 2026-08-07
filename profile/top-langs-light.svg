@@ -7,156 +7,92 @@
   role="img"
   aria-labelledby="titleId descId"
 >
-  <title id="titleId">Most Used Languages</title>
-  <desc id="descId">Nix 30.77%, Python 26.28%, JavaScript 17.08%, Shell 13.04%, TypeScript 8.31%, PHP 4.52%</desc>
+  <title id="titleId">MOST USED LANGUAGES</title>
+  <desc id="descId">Nix 30.66%, Python 26.55%, JavaScript 17.02%, Shell 12.99%, TypeScript 8.28%, PHP 4.50%</desc>
   <style>
-    .header {
-      font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
-      fill: #2f80ed;
-      animation: fadeInAnimation 0.8s ease-in-out forwards;
+    text { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
+    .key {
+      font-size: 8.5px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      fill: #6B6690;
     }
-    @supports(-moz-appearance: auto) {
-      /* Selector detects Firefox */
-      .header { font-size: 15.5px; }
+    .key-on { fill: #5D5DE6; }
+    .num {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      fill: #211E34;
     }
-    .stat {
-      font: 600 14px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
-      fill: #434d58;
+    .val { font-size: 11px; font-weight: 500; fill: #211E34; }
+    .val-dim { font-size: 11px; font-weight: 500; fill: #6B6690; }
+    .in { opacity: 0; animation: in 0.5s ease-out forwards; }
+    @keyframes in {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    @supports(-moz-appearance: auto) {
-      .stat { font-size: 12px; }
-    }
-    .bold { font-weight: 700; }
-    .icon { fill: #4c71f2; }
-    .stagger {
-      opacity: 0;
-      animation: fadeInAnimation 0.3s ease-in-out forwards;
-    }
-    @keyframes fadeInAnimation {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .lang-name {
-      font: 400 11px "Segoe UI", Ubuntu, Sans-Serif;
-      fill: #434d58;
-    }
-    #rect-mask rect { animation: slideInAnimation 1s ease-in-out forwards; }
-    @keyframes slideInAnimation {
+    @keyframes wipe {
       from { width: 0; }
-      to { width: 445px; }
+      to { width: 451px; }
     }
+    .wipe { animation: wipe 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    @media (prefers-reduced-motion: reduce) {
+      .in { animation: none; opacity: 1; }
+      .wipe { animation: none; }
+    }
+
   </style>
   <rect
     x="0.5"
     y="0.5"
-    rx="4.5"
     width="494"
     height="194"
-    fill="#fffefe"
-    stroke="#e4e2e2"
-    stroke-opacity="1"
+    rx="7.5"
+    fill="#F7F6FD"
+    stroke="#DFDCF0"
   />
-  <g transform="translate(25, 35)">
-    <text x="0" y="0" class="header">Most Used Languages</text>
-  </g>
-
-  <g transform="translate(0, 55)">
-    <svg x="25">
-      <mask id="rect-mask">
-        <rect x="0" y="0" width="445" height="8" fill="white" rx="5" />
-      </mask>
-      <rect
-        mask="url(#rect-mask)"
-        x="0"
-        y="0"
-        width="136.94"
-        height="8"
-        fill="#7e7eff"
-      />
-      <rect
-        mask="url(#rect-mask)"
-        x="136.94"
-        y="0"
-        width="116.96"
-        height="8"
-        fill="#3572A5"
-      />
-      <rect
-        mask="url(#rect-mask)"
-        x="253.9"
-        y="0"
-        width="76.02"
-        height="8"
-        fill="#f1e05a"
-      />
-      <rect
-        mask="url(#rect-mask)"
-        x="329.92"
-        y="0"
-        width="58.01"
-        height="8"
-        fill="#89e051"
-      />
-      <rect
-        mask="url(#rect-mask)"
-        x="387.93"
-        y="0"
-        width="36.98"
-        height="8"
-        fill="#3178c6"
-      />
-      <rect
-        mask="url(#rect-mask)"
-        x="424.91"
-        y="0"
-        width="20.09"
-        height="8"
-        fill="#4F5D95"
-      />
-      <g transform="translate(0, 53)">
-      <g transform="translate(0, 0)">
-        <g transform="translate(0, 0)">
-          <g class="stagger" style="animation-delay: 450ms">
-            <circle cx="5" cy="6" r="5" fill="#7e7eff" />
-            <text x="15" y="10" class="lang-name">Nix 30.77%</text>
-          </g>
-        </g>
-        <g transform="translate(0, 30)">
-          <g class="stagger" style="animation-delay: 600ms">
-            <circle cx="5" cy="6" r="5" fill="#3572A5" />
-            <text x="15" y="10" class="lang-name">Python 26.28%</text>
-          </g>
-        </g>
-      </g>
-      <g transform="translate(148.333, 0)">
-        <g transform="translate(0, 0)">
-          <g class="stagger" style="animation-delay: 450ms">
-            <circle cx="5" cy="6" r="5" fill="#f1e05a" />
-            <text x="15" y="10" class="lang-name">JavaScript 17.08%</text>
-          </g>
-        </g>
-        <g transform="translate(0, 30)">
-          <g class="stagger" style="animation-delay: 600ms">
-            <circle cx="5" cy="6" r="5" fill="#89e051" />
-            <text x="15" y="10" class="lang-name">Shell 13.04%</text>
-          </g>
-        </g>
-      </g>
-      <g transform="translate(296.667, 0)">
-        <g transform="translate(0, 0)">
-          <g class="stagger" style="animation-delay: 450ms">
-            <circle cx="5" cy="6" r="5" fill="#3178c6" />
-            <text x="15" y="10" class="lang-name">TypeScript 8.31%</text>
-          </g>
-        </g>
-        <g transform="translate(0, 30)">
-          <g class="stagger" style="animation-delay: 600ms">
-            <circle cx="5" cy="6" r="5" fill="#4F5D95" />
-            <text x="15" y="10" class="lang-name">PHP 4.52%</text>
-          </g>
-        </g>
-      </g>
-      </g>
-    </svg>
-  </g>
+  <text class="key key-on in" x="22" y="27">MOST USED LANGUAGES</text>
+  <text class="key in" x="473" y="27" text-anchor="end" style="animation-delay: 80ms">BY BYTES · 82 REPOS</text>
+  <line x1="22" y1="38" x2="473" y2="38" stroke="#E3E0F2" />
+    <clipPath id="wipe">
+      <rect class="wipe" x="22" y="58" width="451" height="7" rx="3.5" />
+    </clipPath>
+    <g clip-path="url(#wipe)">
+      <rect x="22.00" y="58" width="138.28" height="7" fill="#7e7eff" />
+      <rect x="160.28" y="58" width="119.73" height="7" fill="#3572A5" />
+      <rect x="280.01" y="58" width="76.76" height="7" fill="#f1e05a" />
+      <rect x="356.78" y="58" width="58.58" height="7" fill="#89e051" />
+      <rect x="415.36" y="58" width="37.35" height="7" fill="#3178c6" />
+      <rect x="452.71" y="58" width="20.29" height="7" fill="#4F5D95" />
+    </g>
+    <g class="in" style="animation-delay: 500ms">
+      <circle cx="26.0" cy="96" r="4" fill="#7e7eff" />
+      <text class="val" x="39.0" y="100">Nix</text>
+      <text class="val-dim" x="217.5" y="100" text-anchor="end">30.66%</text>
+    </g>
+    <g class="in" style="animation-delay: 560ms">
+      <circle cx="26.0" cy="124" r="4" fill="#3572A5" />
+      <text class="val" x="39.0" y="128">Python</text>
+      <text class="val-dim" x="217.5" y="128" text-anchor="end">26.55%</text>
+    </g>
+    <g class="in" style="animation-delay: 620ms">
+      <circle cx="26.0" cy="152" r="4" fill="#f1e05a" />
+      <text class="val" x="39.0" y="156">JavaScript</text>
+      <text class="val-dim" x="217.5" y="156" text-anchor="end">17.02%</text>
+    </g>
+    <g class="in" style="animation-delay: 680ms">
+      <circle cx="251.5" cy="96" r="4" fill="#89e051" />
+      <text class="val" x="264.5" y="100">Shell</text>
+      <text class="val-dim" x="473.0" y="100" text-anchor="end">12.99%</text>
+    </g>
+    <g class="in" style="animation-delay: 740ms">
+      <circle cx="251.5" cy="124" r="4" fill="#3178c6" />
+      <text class="val" x="264.5" y="128">TypeScript</text>
+      <text class="val-dim" x="473.0" y="128" text-anchor="end">8.28%</text>
+    </g>
+    <g class="in" style="animation-delay: 800ms">
+      <circle cx="251.5" cy="152" r="4" fill="#4F5D95" />
+      <text class="val" x="264.5" y="156">PHP</text>
+      <text class="val-dim" x="473.0" y="156" text-anchor="end">4.50%</text>
+    </g>
 </svg>

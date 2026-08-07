@@ -33,8 +33,6 @@ jobs:
           python3 scripts/generate_cards.py \
             --login "$LOGIN" \
             --out-dir profile \
-            --dark-theme github_dark_dimmed \
-            --light-theme default \
             --langs-count 6 \
             --hide-langs 'HTML,CSS,XSLT,Perl,Vim Script,Scheme,Roff,CMake,Vue,Astro' \
             --exclude-repos 'odd-etc-backup'
