@@ -7,92 +7,111 @@
   role="img"
   aria-labelledby="titleId descId"
 >
-  <title id="titleId">MOST USED LANGUAGES</title>
-  <desc id="descId">Nix 30.66%, Python 26.55%, JavaScript 17.02%, Shell 12.99%, TypeScript 8.28%, PHP 4.50%</desc>
+  <title id="titleId">&lt;tspan style=&quot;opacity: 0.62&quot;&gt;bad3r.&lt;/tspan&gt;languages</title>
+  <desc id="descId">Most used languages by bytes written: Nix 30.7%, Python 26.5%, JavaScript 17.0%, Shell 13.0%, TypeScript 8.3%, PHP 4.5%</desc>
   <style>
     text { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
-    .key {
-      font-size: 8.5px;
-      font-weight: 500;
-      letter-spacing: 0.13em;
-      fill: #7C7899;
+    .path { font-size: 11.5px; font-weight: 500; fill: #8080FF; }
+    .meta { font-size: 11.5px; font-weight: 500; fill: #8B86AB; }
+    .prose { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 11.5px; font-weight: 400; fill: #8B86AB; }
+    .hero {
+      font-size: 44px;
+      font-weight: 600;
+      letter-spacing: -0.035em;
+      fill: #E5E2F6;
     }
-    .key-on { fill: #7E7EFF; }
+    .hero-key { font-size: 12.5px; font-weight: 500; fill: #E5E2F6; }
     .num {
-      font-size: 24px;
+      font-size: 21px;
       font-weight: 600;
       letter-spacing: -0.02em;
-      fill: #D7D4EA;
+      fill: #E5E2F6;
     }
-    .val { font-size: 11px; font-weight: 500; fill: #D7D4EA; }
-    .val-dim { font-size: 11px; font-weight: 500; fill: #7C7899; }
-    .in { opacity: 0; animation: in 0.5s ease-out forwards; }
+    .key { font-size: 11px; font-weight: 500; fill: #8B86AB; }
+    .item { font-size: 12.5px; font-weight: 500; fill: #E5E2F6; }
+    .item-dim { font-size: 12.5px; font-weight: 500; fill: #8B86AB; }
+    .in { opacity: 0; animation: in 0.45s ease-out forwards; }
     @keyframes in {
-      from { opacity: 0; transform: translateY(5px); }
+      from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes wipe {
+    @keyframes bleed {
       from { width: 0; }
-      to { width: 451px; }
+      to { width: 495px; }
     }
-    .wipe { animation: wipe 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    .bleed { animation: bleed 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s forwards; }
     @media (prefers-reduced-motion: reduce) {
       .in { animation: none; opacity: 1; }
-      .wipe { animation: none; }
+      .bleed { animation: none; }
     }
 
   </style>
+  <clipPath id="card">
+    <rect x="0" y="0" width="495" height="195" rx="8" />
+  </clipPath>
   <rect
     x="0.5"
     y="0.5"
     width="494"
     height="194"
     rx="7.5"
-    fill="#14131F"
-    stroke="#2E2C44"
+    fill="#12111C"
+    stroke="#2C2A42"
   />
-  <text class="key key-on in" x="22" y="27">MOST USED LANGUAGES</text>
-  <text class="key in" x="473" y="27" text-anchor="end" style="animation-delay: 80ms">BY BYTES · 82 REPOS</text>
-  <line x1="22" y1="38" x2="473" y2="38" stroke="#282640" />
-    <clipPath id="wipe">
-      <rect class="wipe" x="22" y="58" width="451" height="7" rx="3.5" />
-    </clipPath>
-    <g clip-path="url(#wipe)">
-      <rect x="22.00" y="58" width="138.28" height="7" fill="#7e7eff" />
-      <rect x="160.28" y="58" width="119.73" height="7" fill="#3572A5" />
-      <rect x="280.01" y="58" width="76.76" height="7" fill="#f1e05a" />
-      <rect x="356.78" y="58" width="58.58" height="7" fill="#89e051" />
-      <rect x="415.36" y="58" width="37.35" height="7" fill="#3178c6" />
-      <rect x="452.71" y="58" width="20.29" height="7" fill="#4F5D95" />
+  <text class="path in" x="24" y="31"><tspan style="opacity: 0.62">bad3r.</tspan>languages</text>
+  <text
+    class="meta in"
+    x="471"
+    y="31"
+    text-anchor="end"
+    style="animation-delay: 70ms"
+  >82 repos · by bytes</text>
+  <g class="in" style="animation-delay: 140ms">
+    <text
+      class="hero"
+      x="24"
+      y="108"
+      style="font-size: 44.0px; fill: #7e7eff"
+    >Nix</text>
+    <text class="hero-key" x="24" y="132">30.7%</text>
+    <text class="prose" x="70.5" y="132">of all bytes written</text>
+  </g>
+  <g class="in" style="animation-delay: 260ms">
+    <circle cx="252" cy="62" r="4" fill="#3572A5" />
+    <text class="item" x="268" y="66">Python</text>
+    <text class="item-dim" x="471" y="66" text-anchor="end">26.5%</text>
+  </g>
+  <g class="in" style="animation-delay: 320ms">
+    <circle cx="252" cy="88" r="4" fill="#f1e05a" />
+    <text class="item" x="268" y="92">JavaScript</text>
+    <text class="item-dim" x="471" y="92" text-anchor="end">17.0%</text>
+  </g>
+  <g class="in" style="animation-delay: 380ms">
+    <circle cx="252" cy="114" r="4" fill="#89e051" />
+    <text class="item" x="268" y="118">Shell</text>
+    <text class="item-dim" x="471" y="118" text-anchor="end">13.0%</text>
+  </g>
+  <g class="in" style="animation-delay: 440ms">
+    <circle cx="252" cy="140" r="4" fill="#3178c6" />
+    <text class="item" x="268" y="144">TypeScript</text>
+    <text class="item-dim" x="471" y="144" text-anchor="end">8.3%</text>
+  </g>
+  <g class="in" style="animation-delay: 500ms">
+    <circle cx="252" cy="166" r="4" fill="#4F5D95" />
+    <text class="item" x="268" y="170">PHP</text>
+    <text class="item-dim" x="471" y="170" text-anchor="end">4.5%</text>
+  </g>
+  <clipPath id="strip">
+    <rect class="bleed" x="0" y="190" width="495" height="5" />
+  </clipPath>
+  <g clip-path="url(#card)">
+    <g clip-path="url(#strip)">
+      <rect x="0.00" y="190" width="151.88" height="5" fill="#7e7eff" />
+      <rect x="151.88" y="190" width="131.15" height="5" fill="#3572A5" />
+      <rect x="283.03" y="190" width="84.31" height="5" fill="#f1e05a" />
+      <rect x="367.35" y="190" width="64.34" height="5" fill="#89e051" />
+      <rect x="431.69" y="190" width="41.02" height="5" fill="#3178c6" />
+      <rect x="472.71" y="190" width="22.29" height="5" fill="#4F5D95" />
     </g>
-    <g class="in" style="animation-delay: 500ms">
-      <circle cx="26.0" cy="96" r="4" fill="#7e7eff" />
-      <text class="val" x="39.0" y="100">Nix</text>
-      <text class="val-dim" x="217.5" y="100" text-anchor="end">30.66%</text>
-    </g>
-    <g class="in" style="animation-delay: 560ms">
-      <circle cx="26.0" cy="124" r="4" fill="#3572A5" />
-      <text class="val" x="39.0" y="128">Python</text>
-      <text class="val-dim" x="217.5" y="128" text-anchor="end">26.55%</text>
-    </g>
-    <g class="in" style="animation-delay: 620ms">
-      <circle cx="26.0" cy="152" r="4" fill="#f1e05a" />
-      <text class="val" x="39.0" y="156">JavaScript</text>
-      <text class="val-dim" x="217.5" y="156" text-anchor="end">17.02%</text>
-    </g>
-    <g class="in" style="animation-delay: 680ms">
-      <circle cx="251.5" cy="96" r="4" fill="#89e051" />
-      <text class="val" x="264.5" y="100">Shell</text>
-      <text class="val-dim" x="473.0" y="100" text-anchor="end">12.99%</text>
-    </g>
-    <g class="in" style="animation-delay: 740ms">
-      <circle cx="251.5" cy="124" r="4" fill="#3178c6" />
-      <text class="val" x="264.5" y="128">TypeScript</text>
-      <text class="val-dim" x="473.0" y="128" text-anchor="end">8.28%</text>
-    </g>
-    <g class="in" style="animation-delay: 800ms">
-      <circle cx="251.5" cy="152" r="4" fill="#4F5D95" />
-      <text class="val" x="264.5" y="156">PHP</text>
-      <text class="val-dim" x="473.0" y="156" text-anchor="end">4.50%</text>
-    </g>
+  </g>
 </svg>

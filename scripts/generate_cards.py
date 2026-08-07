@@ -29,35 +29,53 @@ FALLBACK_LANGUAGE_COLOR = "#858585"
 
 
 # Layout. One size for every card so the README stack reads as one object.
+# Each card carries a single hero, a short supporting row, and the data strip
+# fused to its bottom edge, so the whole thing resolves in one glance.
 CARD_WIDTH = 495
 CARD_HEIGHT = 195
-PAD = 22
+PAD = 24
 CONTENT = CARD_WIDTH - 2 * PAD
-RULE_Y = 38
+HEADER_Y = 31
+STRIP_H = 5
+STRIP_Y = CARD_HEIGHT - STRIP_H
+HERO_Y = 100
+HERO_SIZE = 44
+SUB_SIZE = 21
+LABEL_SIZE = 11
+ROW_Y = 150
 
+# Monospace advance width as a fraction of the em, used to lay columns out
+# without a text measurement pass.
+ADVANCE = 0.6
+
+# Identifiers, numerals and units are set in mono; whole sentences are set in
+# the sans face. The face is the tell for whether a string is data or prose.
 MONO = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace"
+SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, 'Helvetica Neue', Arial, sans-serif"
 
 # Palette built off #7e7eff, GitHub's assigned colour for Nix, which is this
 # account's dominant language. The ground leans indigo rather than neutral so
 # the cards do not read as the stock GitHub surface.
 THEMES = {
     "dark": {
-        "bg": "#14131F",
-        "border": "#2E2C44",
-        "rule": "#282640",
-        "text": "#D7D4EA",
-        "dim": "#7C7899",
-        "accent": "#7E7EFF",
-        "track": "#26243A",
+        "bg": "#12111C",
+        "border": "#2C2A42",
+        "rule": "#272442",
+        "text": "#E5E2F6",
+        "dim": "#8B86AB",
+        "accent": "#8080FF",
+        "track": "#232038",
+        "ridge": "0.2",
     },
     "light": {
-        "bg": "#F7F6FD",
-        "border": "#DFDCF0",
-        "rule": "#E3E0F2",
-        "text": "#211E34",
-        "dim": "#6B6690",
-        "accent": "#5D5DE6",
-        "track": "#D5D0EC",
+        "bg": "#F6F5FC",
+        "border": "#DEDBF1",
+        "rule": "#E2DFF3",
+        "text": "#191730",
+        "dim": "#605B84",
+        "accent": "#5654E0",
+        "track": "#DCD8F0",
+        "ridge": "0.14",
     },
 }
 
@@ -65,14 +83,9 @@ THEMES = {
 PROFILE_QUERY = """
 query($login: String!) {
   user(login: $login) {
-    name
     login
     createdAt
     followers { totalCount }
-    repositoriesContributedTo(
-      first: 1
-      contributionTypes: [COMMIT, ISSUE, PULL_REQUEST, REPOSITORY]
-    ) { totalCount }
     pullRequests(first: 1) { totalCount }
     openIssues: issues(states: OPEN) { totalCount }
     closedIssues: issues(states: CLOSED) { totalCount }
@@ -336,28 +349,31 @@ def calculate_rank(
     return levels[-1], percentile
 
 
-def k_format(value: int) -> str:
-    if abs(value) <= 999:
-        return str(value)
-    scaled = round(abs(value) / 1000, 1)
-    text = f"{scaled:.1f}".removesuffix(".0")
-    return f"{'-' if value < 0 else ''}{text}k"
-
-
 def group_digits(value: int) -> str:
     return f"{value:,}"
 
 
-def format_date(date: dt.date, current_year: int) -> str:
-    if date.year == current_year:
-        return f"{date:%b} {date.day}"
-    return f"{date:%b} {date.day}, {date.year}"
+def relative_luminance(color: str) -> float:
+    channels = []
+    for offset in (1, 3, 5):
+        value = int(color[offset : offset + 2], 16) / 255
+        channels.append(value / 12.92 if value <= 0.03928 else ((value + 0.055) / 1.055) ** 2.4)
+    return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2]
 
 
-def format_range(start: dt.date, end: dt.date, current_year: int) -> str:
-    if start == end:
-        return format_date(start, current_year)
-    return f"{format_date(start, current_year)} - {format_date(end, current_year)}"
+def readable_on(color: str, background: str, *, fallback: str) -> str:
+    """GitHub's language colours are picked for neither of these grounds.
+
+    A colour that cannot clear 3:1 against the card would leave the headline
+    unreadable on one of the two themes, so it drops back to the accent.
+    """
+    if len(color) != 7 or not color.startswith("#"):
+        return fallback
+    try:
+        pair = sorted((relative_luminance(color), relative_luminance(background)))
+    except ValueError:
+        return fallback
+    return color if (pair[1] + 0.05) / (pair[0] + 0.05) >= 3.0 else fallback
 
 
 def weekly_series(days: dict[str, int], weeks: int = 52) -> list[int]:
@@ -374,9 +390,22 @@ def weekly_series(days: dict[str, int], weeks: int = 52) -> list[int]:
 
 
 def card_shell(
-    *, theme: dict, eyebrow_left: str, eyebrow_right: str, body: str, style: str, description: str
+    *,
+    theme: dict,
+    path: str,
+    meta: str,
+    meta_prose: bool = False,
+    hero: str,
+    strip: str,
+    body: str,
+    style: str,
+    description: str,
 ) -> str:
-    """Every card is a section of the same manifest: eyebrow, rule, content."""
+    """Every card is one attribute of the same set: path, hero, strip.
+
+    The strip is fused to the bottom edge and clipped to the card silhouette,
+    which keeps the proportion reading out of the content area entirely.
+    """
     return f"""<svg
   width="{CARD_WIDTH}"
   height="{CARD_HEIGHT}"
@@ -386,41 +415,48 @@ def card_shell(
   role="img"
   aria-labelledby="titleId descId"
 >
-  <title id="titleId">{escape(eyebrow_left)}</title>
+  <title id="titleId">{escape(path)}</title>
   <desc id="descId">{escape(description)}</desc>
   <style>
     text {{ font-family: {MONO}; }}
-    .key {{
-      font-size: 8.5px;
-      font-weight: 500;
-      letter-spacing: 0.13em;
-      fill: {theme["dim"]};
+    .path {{ font-size: 11.5px; font-weight: 500; fill: {theme["accent"]}; }}
+    .meta {{ font-size: 11.5px; font-weight: 500; fill: {theme["dim"]}; }}
+    .prose {{ font-family: {SANS}; font-size: 11.5px; font-weight: 400; fill: {theme["dim"]}; }}
+    .hero {{
+      font-size: {HERO_SIZE}px;
+      font-weight: 600;
+      letter-spacing: -0.035em;
+      fill: {theme["text"]};
     }}
-    .key-on {{ fill: {theme["accent"]}; }}
+    .hero-key {{ font-size: 12.5px; font-weight: 500; fill: {theme["text"]}; }}
     .num {{
-      font-size: 24px;
+      font-size: {SUB_SIZE}px;
       font-weight: 600;
       letter-spacing: -0.02em;
       fill: {theme["text"]};
     }}
-    .val {{ font-size: 11px; font-weight: 500; fill: {theme["text"]}; }}
-    .val-dim {{ font-size: 11px; font-weight: 500; fill: {theme["dim"]}; }}
-    .in {{ opacity: 0; animation: in 0.5s ease-out forwards; }}
+    .key {{ font-size: {LABEL_SIZE}px; font-weight: 500; fill: {theme["dim"]}; }}
+    .item {{ font-size: 12.5px; font-weight: 500; fill: {theme["text"]}; }}
+    .item-dim {{ font-size: 12.5px; font-weight: 500; fill: {theme["dim"]}; }}
+    .in {{ opacity: 0; animation: in 0.45s ease-out forwards; }}
     @keyframes in {{
-      from {{ opacity: 0; transform: translateY(5px); }}
+      from {{ opacity: 0; transform: translateY(4px); }}
       to {{ opacity: 1; transform: translateY(0); }}
     }}
-    @keyframes wipe {{
+    @keyframes bleed {{
       from {{ width: 0; }}
-      to {{ width: {CONTENT}px; }}
+      to {{ width: {CARD_WIDTH}px; }}
     }}
-    .wipe {{ animation: wipe 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }}
+    .bleed {{ animation: bleed 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s forwards; }}
     @media (prefers-reduced-motion: reduce) {{
       .in {{ animation: none; opacity: 1; }}
-      .wipe {{ animation: none; }}
+      .bleed {{ animation: none; }}
     }}
 {style}
   </style>
+  <clipPath id="card">
+    <rect x="0" y="0" width="{CARD_WIDTH}" height="{CARD_HEIGHT}" rx="8" />
+  </clipPath>
   <rect
     x="0.5"
     y="0.5"
@@ -430,97 +466,141 @@ def card_shell(
     fill="{theme["bg"]}"
     stroke="{theme["border"]}"
   />
-  <text class="key key-on in" x="{PAD}" y="27">{escape(eyebrow_left)}</text>
-  <text class="key in" x="{CARD_WIDTH - PAD}" y="27" text-anchor="end" style="animation-delay: 80ms">{escape(eyebrow_right)}</text>
-  <line x1="{PAD}" y1="{RULE_Y}" x2="{CARD_WIDTH - PAD}" y2="{RULE_Y}" stroke="{theme["rule"]}" />
+  <text class="path in" x="{PAD}" y="{HEADER_Y}">{path}</text>
+  <text
+    class="{"prose" if meta_prose else "meta"} in"
+    x="{CARD_WIDTH - PAD}"
+    y="{HEADER_Y}"
+    text-anchor="end"
+    style="animation-delay: 70ms"
+  >{escape(meta)}</text>
+{hero}
 {body}
+  <clipPath id="strip">
+    <rect class="bleed" x="0" y="{STRIP_Y}" width="{CARD_WIDTH}" height="{STRIP_H}" />
+  </clipPath>
+  <g clip-path="url(#card)">
+    <g clip-path="url(#strip)">
+{strip}
+    </g>
+  </g>
 </svg>
 """
 
 
-def measure_bar(segments: list[tuple[str, float]], y: int, height: int = 7) -> str:
-    """Proportion band, the shared device across the set. Segments are (colour, share)."""
+def attribute_path(login: str, attribute: str) -> str:
+    """Card titles read as one attribute set, in the grammar of the top language.
+
+    The login is lowercased to sit in that grammar and to match the dimmer
+    namespace tone; GitHub logins are case insensitive, so it still resolves.
+    """
+    return f'<tspan style="opacity: 0.62">{escape(login.lower())}.</tspan>{escape(attribute)}'
+
+
+def strip_shares(segments: list[tuple[str, float]]) -> str:
+    """Proportion reading across the full card width. Segments are (colour, share)."""
     parts = []
     offset = 0.0
     for color, share in segments:
-        width = share * CONTENT
+        width = share * CARD_WIDTH
         parts.append(
-            f'      <rect x="{PAD + offset:.2f}" y="{y}" width="{width:.2f}" '
-            f'height="{height}" fill="{color}" />'
+            f'      <rect x="{offset:.2f}" y="{STRIP_Y}" width="{width:.2f}" '
+            f'height="{STRIP_H}" fill="{color}" />'
         )
         offset += width
-    joined = "\n".join(parts)
-    return f"""    <clipPath id="wipe">
-      <rect class="wipe" x="{PAD}" y="{y}" width="{CONTENT}" height="{height}" rx="{height / 2}" />
-    </clipPath>
-    <g clip-path="url(#wipe)">
-{joined}
-    </g>"""
+    return "\n".join(parts)
 
 
-NUM_SIZE = 24
-KEY_SIZE = 8.5
+def strip_heat(values: list[int], theme: dict) -> str:
+    """The same series the ridge draws, re-read as discrete weekly intensity."""
+    peak = max(values) or 1
+    cell = CARD_WIDTH / len(values)
+    parts = [
+        f'      <rect x="0" y="{STRIP_Y}" width="{CARD_WIDTH}" height="{STRIP_H}" fill="{theme["track"]}" />'
+    ]
+    for index, value in enumerate(values):
+        if value <= 0:
+            continue
+        opacity = (0.3, 0.5, 0.72, 1.0)[min(3, int(value / peak * 3.999))]
+        parts.append(
+            f'      <rect x="{index * cell:.2f}" y="{STRIP_Y}" width="{cell - 1.2:.2f}" '
+            f'height="{STRIP_H}" fill="{theme["accent"]}" fill-opacity="{opacity}" />'
+        )
+    return "\n".join(parts)
 
 
-def stat_columns(entries: list[tuple[str, str]], y: int, delay: int = 0) -> str:
-    """Numerals on a shared baseline with a tracked key beneath each.
+def hero_lockup(value: str, key: str, prose: str) -> str:
+    """Headline numeral with its name set beside it rather than beneath it.
+
+    Number and meaning land on one reading line, which is what makes the card
+    resolve before the eye reaches the supporting row.
+    """
+    key_x = PAD + len(value) * HERO_SIZE * ADVANCE + 18
+    return f"""  <g class="in" style="animation-delay: 140ms">
+    <text class="hero" x="{PAD}" y="{HERO_Y}">{escape(value)}</text>
+    <text class="hero-key" x="{key_x:.1f}" y="{HERO_Y - 12}">{escape(key)}</text>
+    <text class="prose" x="{key_x:.1f}" y="{HERO_Y + 3}">{escape(prose)}</text>
+  </g>"""
+
+
+def stat_row(entries: list[tuple[str, str]], delay: int = 0) -> str:
+    """Supporting numerals on a shared baseline, each named by its attribute.
 
     Columns are sized to their own content and the slack is split into even
     gutters, so a wide value like 10,066 never crowds its neighbour.
     """
-    widths = [max(len(value) * NUM_SIZE * 0.6, len(key) * KEY_SIZE * 0.6 * 1.13) for value, key in entries]
+    widths = [
+        max(len(value) * SUB_SIZE, len(key) * LABEL_SIZE) * ADVANCE for value, key in entries
+    ]
     gutter = (CONTENT - sum(widths)) / max(1, len(entries) - 1)
     blocks = []
     x = float(PAD)
     for index, (value, key) in enumerate(entries):
         blocks.append(
-            f"""    <g class="in" style="animation-delay: {delay + index * 70}ms">
-      <text class="num" x="{x:.1f}" y="{y}">{escape(value)}</text>
-      <text class="key" x="{x:.1f}" y="{y + 17}">{escape(key)}</text>
-    </g>"""
+            f"""  <g class="in" style="animation-delay: {delay + index * 60}ms">
+    <text class="num" x="{x:.1f}" y="{ROW_Y}">{escape(value)}</text>
+    <text class="key" x="{x:.1f}" y="{ROW_Y + 16}">{escape(key)}</text>
+  </g>"""
         )
         x += widths[index] + gutter
     return "\n".join(blocks)
 
 
-def render_stats_card(*, theme_name: str, name: str, stats: dict) -> str:
+def render_stats_card(*, theme_name: str, login: str, stats: dict) -> str:
     theme = THEMES[theme_name]
     public = stats["contributions"] - stats["private"]
     public_share = public / stats["contributions"] if stats["contributions"] else 1.0
 
-    columns = stat_columns(
-        [
-            (group_digits(stats["commits"]), "PUBLIC COMMITS"),
-            (group_digits(stats["private"]), "PRIVATE"),
-            (group_digits(stats["prs"]), "PULL REQUESTS"),
-            (group_digits(stats["issues"]), "ISSUES"),
-            (group_digits(stats["stars"]), "STARS"),
-        ],
-        y=88,
-        delay=140,
-    )
-    band = measure_bar([(theme["accent"], public_share), (theme["track"], 1 - public_share)], y=140)
-    body = f"""{columns}
-{band}
-    <text class="key key-on in" x="{PAD}" y="168" style="animation-delay: 620ms">{public_share * 100:.0f}% PUBLIC CONTRIBUTIONS</text>
-    <text class="key in" x="{CARD_WIDTH - PAD}" y="168" text-anchor="end" style="animation-delay: 660ms">{(1 - public_share) * 100:.0f}% UNLISTED</text>"""
-
     return card_shell(
         theme=theme,
-        eyebrow_left=f"{name.upper()} · SINCE {stats['since']}",
-        eyebrow_right=f"{stats['contributed_to']} REPOS CONTRIBUTED · RANK {stats['rank_level']}",
-        body=body,
+        path=attribute_path(login, "contributions"),
+        # The strip draws the public split, so the private figure only needs naming.
+        meta=f"{group_digits(stats['private'])} private · rank {stats['rank_level']}",
+        hero=hero_lockup(
+            group_digits(stats["contributions"]), "contributions", f"since {stats['since']}"
+        ),
+        body=stat_row(
+            [
+                (group_digits(stats["commits"]), "commits"),
+                (group_digits(stats["prs"]), "pullRequests"),
+                (group_digits(stats["issues"]), "issues"),
+                (group_digits(stats["stars"]), "stars"),
+            ],
+            delay=240,
+        ),
+        strip=strip_shares([(theme["accent"], public_share), (theme["track"], 1 - public_share)]),
         style="",
         description=(
-            f"{stats['commits']} public commits, {stats['private']} private contributions, "
-            f"{stats['prs']} pull requests, {stats['issues']} issues, {stats['stars']} stars, "
-            f"rank {stats['rank_level']}"
+            f"{stats['contributions']} contributions since {stats['since']}, "
+            f"{public_share * 100:.0f}% of them public. {stats['commits']} public commits, "
+            f"{stats['private']} private contributions, {stats['prs']} pull requests, "
+            f"{stats['issues']} issues, {stats['stars']} stars, rank {stats['rank_level']}."
         ),
     )
 
 
 def render_top_languages_card(
-    *, theme_name: str, languages: list[tuple[str, str, int]], repo_count: int
+    *, theme_name: str, login: str, languages: list[tuple[str, str, int]], repo_count: int
 ) -> str:
     theme = THEMES[theme_name]
     if not languages:
@@ -528,89 +608,110 @@ def render_top_languages_card(
 
     total = sum(size for _, _, size in languages)
     shares = [(name, color, size / total) for name, color, size in languages]
-    band = measure_bar([(color, share) for _, color, share in shares], y=58)
+    lead_name, lead_color, lead_share = shares[0]
 
-    rows_per_column = -(-len(shares) // 2)
-    column_width = CONTENT / 2
+    # The headline wears the language's own colour when the ground allows it.
+    tint = readable_on(lead_color, theme["bg"], fallback=theme["accent"])
+    # Long names step down until they clear the ranked list beside them.
+    size = max(24.0, min(float(HERO_SIZE), 206 / max(1, len(lead_name) * ADVANCE)))
+    percent = f"{lead_share * 100:.1f}%"
+    hero = f"""  <g class="in" style="animation-delay: 140ms">
+    <text
+      class="hero"
+      x="{PAD}"
+      y="108"
+      style="font-size: {size:.1f}px; fill: {tint}"
+    >{escape(lead_name)}</text>
+    <text class="hero-key" x="{PAD}" y="132">{percent}</text>
+    <text class="prose" x="{PAD + len(percent) * 12.5 * ADVANCE + 9:.1f}" y="132">of all bytes written</text>
+  </g>"""
+
     rows = []
-    for index, (name, color, share) in enumerate(shares):
-        column, row = divmod(index, rows_per_column)
-        x = PAD + column * column_width
-        # Last column's numbers hang on the card's own right edge.
-        percent_x = PAD + (column + 1) * column_width - (30 if column == 0 else 0)
-        y = 100 + row * 28
+    for index, (name, color, share) in enumerate(shares[1:]):
+        y = 66 + index * 26
         rows.append(
-            f"""    <g class="in" style="animation-delay: {500 + index * 60}ms">
-      <circle cx="{x + 4:.1f}" cy="{y - 4}" r="4" fill="{color}" />
-      <text class="val" x="{x + 17:.1f}" y="{y}">{escape(name)}</text>
-      <text class="val-dim" x="{percent_x:.1f}" y="{y}" text-anchor="end">{share * 100:.2f}%</text>
-    </g>"""
+            f"""  <g class="in" style="animation-delay: {260 + index * 60}ms">
+    <circle cx="{PAD + 228}" cy="{y - 4}" r="4" fill="{color}" />
+    <text class="item" x="{PAD + 244}" y="{y}">{escape(name)}</text>
+    <text class="item-dim" x="{CARD_WIDTH - PAD}" y="{y}" text-anchor="end">{share * 100:.1f}%</text>
+  </g>"""
         )
 
-    body = band + "\n" + "\n".join(rows)
     return card_shell(
         theme=theme,
-        eyebrow_left="MOST USED LANGUAGES",
-        eyebrow_right=f"BY BYTES · {repo_count} REPOS",
-        body=body,
+        path=attribute_path(login, "languages"),
+        meta=f"{repo_count} repos · by bytes",
+        hero=hero,
+        body="\n".join(rows),
+        strip=strip_shares([(color, share) for _, color, share in shares]),
         style="",
-        description=", ".join(f"{name} {share * 100:.2f}%" for name, _, share in shares),
+        description="Most used languages by bytes written: "
+        + ", ".join(f"{name} {share * 100:.1f}%" for name, _, share in shares),
     )
 
 
-def render_activity_card(*, theme_name: str, streaks: Streaks, weeks: list[int]) -> str:
-    """The signature card: a year of real per-day data the numbers alone hide."""
+def render_activity_card(*, theme_name: str, login: str, streaks: Streaks, weeks: list[int]) -> str:
+    """The signature card: a year of real per-week data the numbers alone hide."""
     theme = THEMES[theme_name]
-    top, height = 56, 74
+    accent = theme["accent"]
+    top, height = 54, 58
+    base = top + height
     peak = max(weeks) or 1
     step = CONTENT / (len(weeks) - 1)
-    points = [(PAD + index * step, top + height - value / peak * height) for index, value in enumerate(weeks)]
+    points = [(PAD + index * step, base - value / peak * height) for index, value in enumerate(weeks)]
     line = "M " + " L ".join(f"{x:.1f} {y:.1f}" for x, y in points)
-    area = f"{line} L {PAD + CONTENT:.1f} {top + height} L {PAD} {top + height} Z"
+    area = f"{line} L {PAD + CONTENT:.1f} {base} L {PAD} {base} Z"
     last_x, last_y = points[-1]
 
-    style = f"""    .ridge-fill {{ fill: {theme["accent"]}; opacity: 0.16; }}
-    .ridge-line {{ stroke: {theme["accent"]}; stroke-width: 1.5; fill: none;
-                   stroke-linejoin: round; stroke-linecap: round; }}"""
+    style = f"""    .ridge-fill {{ fill: {accent}; opacity: {theme["ridge"]}; }}
+    .ridge-line {{ stroke: {accent}; stroke-width: 1.6; fill: none;
+                   stroke-linejoin: round; stroke-linecap: round; }}
+    @keyframes sweep {{
+      from {{ width: 0; }}
+      to {{ width: {CONTENT}px; }}
+    }}
+    .sweep {{ animation: sweep 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }}
+    @media (prefers-reduced-motion: reduce) {{
+      .sweep {{ animation: none; }}
+    }}"""
 
-    body = f"""    <clipPath id="wipe">
-      <rect class="wipe" x="{PAD}" y="{top}" width="{CONTENT}" height="{height + 1}" />
-    </clipPath>
-    <g clip-path="url(#wipe)">
-      <path class="ridge-fill" d="{area}" />
-      <path class="ridge-line" d="{line}" />
-    </g>
-    <circle class="in" cx="{last_x:.1f}" cy="{last_y:.1f}" r="3" fill="{
-        theme["accent"]
-    }" style="animation-delay: 900ms" />
-    <line x1="{PAD}" y1="{top + height}" x2="{CARD_WIDTH - PAD}" y2="{top + height}" stroke="{
-        theme["rule"]
-    }" />
-{
-        stat_columns(
-            [
-                (str(streaks.current_length), "DAY CURRENT STREAK"),
-                (str(streaks.longest_length), "DAY LONGEST STREAK"),
-                (group_digits(peak), "BUSIEST WEEK"),
-            ],
-            y=164,
-            delay=300,
-        )
-    }"""
+    hero = f"""  <clipPath id="ridge">
+    <rect class="sweep" x="{PAD}" y="{top}" width="{CONTENT}" height="{height + 1}" />
+  </clipPath>
+  <g clip-path="url(#ridge)">
+    <path class="ridge-fill" d="{area}" />
+    <path class="ridge-line" d="{line}" />
+  </g>
+  <circle
+    class="in"
+    cx="{last_x:.1f}"
+    cy="{last_y:.1f}"
+    r="3.2"
+    fill="{accent}"
+    style="animation-delay: 950ms"
+  />
+  <line x1="{PAD}" y1="{base}" x2="{CARD_WIDTH - PAD}" y2="{base}" stroke="{theme["rule"]}" />"""
 
     return card_shell(
         theme=theme,
-        eyebrow_left="CONTRIBUTION ACTIVITY",
-        eyebrow_right=(
-            f"{group_digits(streaks.total_contributions)} SINCE "
-            f"{format_date(streaks.first_contribution, streaks.today.year).upper()}"
+        path=attribute_path(login, "activity"),
+        meta="last 52 weeks",
+        meta_prose=True,
+        hero=hero,
+        body=stat_row(
+            [
+                (str(streaks.current_length), "currentStreak"),
+                (str(streaks.longest_length), "longestStreak"),
+                (group_digits(peak), "busiestWeek"),
+            ],
+            delay=300,
         ),
-        body=body,
+        strip=strip_heat(weeks, theme),
         style=style,
         description=(
-            f"{streaks.total_contributions} total contributions, current streak "
+            f"Weekly contributions over the last 52 weeks. Current streak "
             f"{streaks.current_length} days, longest streak {streaks.longest_length} days, "
-            f"busiest week {peak}"
+            f"busiest week {peak} contributions."
         ),
     )
 
@@ -663,10 +764,9 @@ def main(argv: list[str] | None = None) -> int:
         "contributions": streaks.total_contributions,
         "prs": prs,
         "issues": issues,
-        "contributed_to": profile["repositoriesContributedTo"]["totalCount"],
         "rank_level": rank_level,
         "rank_percentile": rank_percentile,
-        "since": f"{created_at:%b} {created_at.year}".upper(),
+        "since": f"{created_at:%b %Y}",
     }
     languages = aggregate_languages(
         repositories,
@@ -674,24 +774,26 @@ def main(argv: list[str] | None = None) -> int:
         excluded=parse_list(args.exclude_repos),
         count=args.langs_count,
     )
-    name = profile["name"] or profile["login"]
+    login = profile["login"]
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
     for variant in THEMES:
         (args.out_dir / f"stats-{variant}.svg").write_text(
-            render_stats_card(theme_name=variant, name=name, stats=stats), encoding="utf-8"
+            render_stats_card(theme_name=variant, login=login, stats=stats), encoding="utf-8"
         )
         (args.out_dir / f"top-langs-{variant}.svg").write_text(
-            render_top_languages_card(theme_name=variant, languages=languages, repo_count=len(repositories)),
+            render_top_languages_card(
+                theme_name=variant, login=login, languages=languages, repo_count=len(repositories)
+            ),
             encoding="utf-8",
         )
         (args.out_dir / f"activity-{variant}.svg").write_text(
-            render_activity_card(theme_name=variant, streaks=streaks, weeks=weeks),
+            render_activity_card(theme_name=variant, login=login, streaks=streaks, weeks=weeks),
             encoding="utf-8",
         )
 
     print(
-        f"{name}: rank {rank_level} ({rank_percentile:.2f}%), {stars} stars, "
+        f"{login}: rank {rank_level} ({rank_percentile:.2f}%), {stars} stars, "
         f"{contributions['commits']} public commits, {prs} PRs, {issues} issues, "
         f"{streaks.total_contributions} contributions, "
         f"current streak {streaks.current_length}, longest streak {streaks.longest_length}, "
