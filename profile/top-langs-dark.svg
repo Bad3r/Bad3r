@@ -8,7 +8,7 @@
   aria-labelledby="titleId descId"
 >
   <title id="titleId">&lt;tspan style=&quot;opacity: 0.62&quot;&gt;bad3r.&lt;/tspan&gt;languages</title>
-  <desc id="descId">Most used languages by bytes written: Nix 29.9%, Python 26.1%, JavaScript 16.2%, Shell 14.0%, TypeScript 9.5%, PHP 4.3%</desc>
+  <desc id="descId">Most used languages by bytes written: Nix 30.0%, Python 26.1%, JavaScript 16.1%, Shell 14.0%, TypeScript 9.5%, PHP 4.3%</desc>
   <style>
     text { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
     .path { font-size: 11.5px; font-weight: 500; fill: #8080FF; }
@@ -73,7 +73,7 @@
       y="108"
       style="font-size: 44.0px; fill: #7e7eff"
     >Nix</text>
-    <text class="hero-key" x="24" y="132">29.9%</text>
+    <text class="hero-key" x="24" y="132">30.0%</text>
     <text class="prose" x="70.5" y="132">of all bytes written</text>
   </g>
   <g class="in" style="animation-delay: 260ms">
@@ -84,7 +84,7 @@
   <g class="in" style="animation-delay: 320ms">
     <circle cx="252" cy="88" r="4" fill="#f1e05a" />
     <text class="item" x="268" y="92">JavaScript</text>
-    <text class="item-dim" x="471" y="92" text-anchor="end">16.2%</text>
+    <text class="item-dim" x="471" y="92" text-anchor="end">16.1%</text>
   </g>
   <g class="in" style="animation-delay: 380ms">
     <circle cx="252" cy="114" r="4" fill="#89e051" />
@@ -106,12 +106,12 @@
   </clipPath>
   <g clip-path="url(#card)">
     <g clip-path="url(#strip)">
-      <rect x="0.00" y="190" width="148.16" height="5" fill="#7e7eff" />
-      <rect x="148.16" y="190" width="129.40" height="5" fill="#3572A5" />
-      <rect x="277.56" y="190" width="79.97" height="5" fill="#f1e05a" />
-      <rect x="357.54" y="190" width="69.22" height="5" fill="#89e051" />
-      <rect x="426.76" y="190" width="47.10" height="5" fill="#3178c6" />
-      <rect x="473.86" y="190" width="21.14" height="5" fill="#4F5D95" />
+      <rect x="0.00" y="190" width="148.47" height="5" fill="#7e7eff" />
+      <rect x="148.47" y="190" width="129.22" height="5" fill="#3572A5" />
+      <rect x="277.70" y="190" width="79.86" height="5" fill="#f1e05a" />
+      <rect x="357.56" y="190" width="69.30" height="5" fill="#89e051" />
+      <rect x="426.85" y="190" width="47.04" height="5" fill="#3178c6" />
+      <rect x="473.89" y="190" width="21.11" height="5" fill="#4F5D95" />
     </g>
   </g>
 </svg>
