@@ -8,7 +8,7 @@
   aria-labelledby="titleId descId"
 >
   <title id="titleId">&lt;tspan style=&quot;opacity: 0.62&quot;&gt;bad3r.&lt;/tspan&gt;activity</title>
-  <desc id="descId">Weekly contributions over the last 52 weeks. Current streak 54 days, longest streak 54 days, busiest week 317 contributions.</desc>
+  <desc id="descId">Weekly contributions over the last 52 weeks. Current streak 1 days, longest streak 54 days, busiest week 245 contributions.</desc>
   <style>
     text { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
     .path { font-size: 11.5px; font-weight: 500; fill: #8080FF; }
@@ -80,20 +80,20 @@
     <rect class="sweep" x="24" y="54" width="447" height="59" />
   </clipPath>
   <g clip-path="url(#ridge)">
-    <path class="ridge-fill" d="M 24.0 106.3 L 32.8 94.3 L 41.5 70.3 L 50.3 95.9 L 59.1 85.8 L 67.8 90.4 L 76.6 103.0 L 85.4 111.6 L 94.1 104.7 L 102.9 106.5 L 111.6 111.3 L 120.4 111.8 L 129.2 112.0 L 137.9 111.3 L 146.7 110.0 L 155.5 112.0 L 164.2 108.0 L 173.0 99.6 L 181.8 108.3 L 190.5 95.7 L 199.3 97.4 L 208.1 98.3 L 216.8 104.7 L 225.6 67.0 L 234.4 89.9 L 243.1 89.7 L 251.9 97.2 L 260.6 102.7 L 269.4 100.1 L 278.2 104.7 L 286.9 109.6 L 295.7 96.8 L 304.5 96.1 L 313.2 96.8 L 322.0 86.4 L 330.8 79.2 L 339.5 65.0 L 348.3 91.3 L 357.1 96.4 L 365.8 103.4 L 374.6 102.1 L 383.4 101.4 L 392.1 105.4 L 400.9 102.9 L 409.6 81.1 L 418.4 104.5 L 427.2 81.8 L 435.9 88.6 L 444.7 54.0 L 453.5 92.2 L 462.2 99.2 L 471.0 104.1 L 471.0 112 L 24 112 Z" />
-    <path class="ridge-line" d="M 24.0 106.3 L 32.8 94.3 L 41.5 70.3 L 50.3 95.9 L 59.1 85.8 L 67.8 90.4 L 76.6 103.0 L 85.4 111.6 L 94.1 104.7 L 102.9 106.5 L 111.6 111.3 L 120.4 111.8 L 129.2 112.0 L 137.9 111.3 L 146.7 110.0 L 155.5 112.0 L 164.2 108.0 L 173.0 99.6 L 181.8 108.3 L 190.5 95.7 L 199.3 97.4 L 208.1 98.3 L 216.8 104.7 L 225.6 67.0 L 234.4 89.9 L 243.1 89.7 L 251.9 97.2 L 260.6 102.7 L 269.4 100.1 L 278.2 104.7 L 286.9 109.6 L 295.7 96.8 L 304.5 96.1 L 313.2 96.8 L 322.0 86.4 L 330.8 79.2 L 339.5 65.0 L 348.3 91.3 L 357.1 96.4 L 365.8 103.4 L 374.6 102.1 L 383.4 101.4 L 392.1 105.4 L 400.9 102.9 L 409.6 81.1 L 418.4 104.5 L 427.2 81.8 L 435.9 88.6 L 444.7 54.0 L 453.5 92.2 L 462.2 99.2 L 471.0 104.1" />
+    <path class="ridge-fill" d="M 24.0 104.7 L 32.8 79.1 L 41.5 64.9 L 50.3 84.8 L 59.1 86.4 L 67.8 81.9 L 76.6 103.7 L 85.4 111.1 L 94.1 102.5 L 102.9 105.4 L 111.6 111.1 L 120.4 111.8 L 129.2 112.0 L 137.9 111.1 L 146.7 109.4 L 155.5 112.0 L 164.2 106.6 L 173.0 95.0 L 181.8 104.2 L 190.5 92.6 L 199.3 94.5 L 208.1 93.5 L 216.8 80.3 L 225.6 68.7 L 234.4 92.6 L 243.1 73.9 L 251.9 98.3 L 260.6 100.9 L 269.4 95.2 L 278.2 106.8 L 286.9 91.4 L 295.7 108.0 L 304.5 92.6 L 313.2 89.7 L 322.0 79.3 L 330.8 62.8 L 339.5 54.0 L 348.3 89.3 L 357.1 94.2 L 365.8 99.7 L 374.6 100.6 L 383.4 97.8 L 392.1 103.0 L 400.9 101.3 L 409.6 65.8 L 418.4 107.3 L 427.2 70.3 L 435.9 54.2 L 444.7 65.6 L 453.5 87.9 L 462.2 96.4 L 471.0 94.2 L 471.0 112 L 24 112 Z" />
+    <path class="ridge-line" d="M 24.0 104.7 L 32.8 79.1 L 41.5 64.9 L 50.3 84.8 L 59.1 86.4 L 67.8 81.9 L 76.6 103.7 L 85.4 111.1 L 94.1 102.5 L 102.9 105.4 L 111.6 111.1 L 120.4 111.8 L 129.2 112.0 L 137.9 111.1 L 146.7 109.4 L 155.5 112.0 L 164.2 106.6 L 173.0 95.0 L 181.8 104.2 L 190.5 92.6 L 199.3 94.5 L 208.1 93.5 L 216.8 80.3 L 225.6 68.7 L 234.4 92.6 L 243.1 73.9 L 251.9 98.3 L 260.6 100.9 L 269.4 95.2 L 278.2 106.8 L 286.9 91.4 L 295.7 108.0 L 304.5 92.6 L 313.2 89.7 L 322.0 79.3 L 330.8 62.8 L 339.5 54.0 L 348.3 89.3 L 357.1 94.2 L 365.8 99.7 L 374.6 100.6 L 383.4 97.8 L 392.1 103.0 L 400.9 101.3 L 409.6 65.8 L 418.4 107.3 L 427.2 70.3 L 435.9 54.2 L 444.7 65.6 L 453.5 87.9 L 462.2 96.4 L 471.0 94.2" />
   </g>
   <circle
     class="in"
     cx="471.0"
-    cy="104.1"
+    cy="94.2"
     r="3.2"
     fill="#8080FF"
     style="animation-delay: 950ms"
   />
   <line x1="24" y1="112" x2="471" y2="112" stroke="#272442" />
   <g class="in" style="animation-delay: 300ms">
-    <text class="num" x="24.0" y="150">54</text>
+    <text class="num" x="24.0" y="150">1</text>
     <text class="key" x="24.0" y="166">currentStreak</text>
   </g>
   <g class="in" style="animation-delay: 360ms">
@@ -101,7 +101,7 @@
     <text class="key" x="211.2" y="166">longestStreak</text>
   </g>
   <g class="in" style="animation-delay: 420ms">
-    <text class="num" x="398.4" y="150">317</text>
+    <text class="num" x="398.4" y="150">245</text>
     <text class="key" x="398.4" y="166">busiestWeek</text>
   </g>
   <clipPath id="strip">
@@ -111,11 +111,11 @@
     <g clip-path="url(#strip)">
       <rect x="0" y="190" width="495" height="5" fill="#232038" />
       <rect x="0.00" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
-      <rect x="9.52" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
-      <rect x="19.04" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.72" />
+      <rect x="9.52" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.72" />
+      <rect x="19.04" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="1.0" />
       <rect x="28.56" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
       <rect x="38.08" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
-      <rect x="47.60" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
+      <rect x="47.60" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.72" />
       <rect x="57.12" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
       <rect x="66.63" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
       <rect x="76.15" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
@@ -125,25 +125,25 @@
       <rect x="123.75" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
       <rect x="133.27" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
       <rect x="152.31" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
-      <rect x="161.83" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
+      <rect x="161.83" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
       <rect x="171.35" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
       <rect x="180.87" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
       <rect x="190.38" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
-      <rect x="199.90" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
-      <rect x="209.42" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
-      <rect x="218.94" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="1.0" />
+      <rect x="199.90" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
+      <rect x="209.42" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.72" />
+      <rect x="218.94" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.72" />
       <rect x="228.46" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
-      <rect x="237.98" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
-      <rect x="247.50" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
+      <rect x="237.98" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.72" />
+      <rect x="247.50" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
       <rect x="257.02" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
-      <rect x="266.54" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
+      <rect x="266.54" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
       <rect x="276.06" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
-      <rect x="285.58" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
-      <rect x="295.10" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
+      <rect x="285.58" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
+      <rect x="295.10" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
       <rect x="304.62" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
       <rect x="314.13" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
-      <rect x="323.65" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
-      <rect x="333.17" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.72" />
+      <rect x="323.65" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.72" />
+      <rect x="333.17" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="1.0" />
       <rect x="342.69" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="1.0" />
       <rect x="352.21" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
       <rect x="361.73" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
@@ -152,14 +152,14 @@
       <rect x="390.29" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
       <rect x="399.81" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
       <rect x="409.33" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
-      <rect x="418.85" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.72" />
+      <rect x="418.85" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="1.0" />
       <rect x="428.37" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
       <rect x="437.88" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.72" />
-      <rect x="447.40" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
+      <rect x="447.40" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="1.0" />
       <rect x="456.92" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="1.0" />
       <rect x="466.44" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
-      <rect x="475.96" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
-      <rect x="485.48" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.3" />
+      <rect x="475.96" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
+      <rect x="485.48" y="190" width="8.32" height="5" fill="#8080FF" fill-opacity="0.5" />
     </g>
   </g>
 </svg>
