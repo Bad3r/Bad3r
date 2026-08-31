@@ -8,7 +8,7 @@
   aria-labelledby="titleId descId"
 >
   <title id="titleId">&lt;tspan style=&quot;opacity: 0.62&quot;&gt;bad3r.&lt;/tspan&gt;languages</title>
-  <desc id="descId">Most used languages by bytes written: Nix 29.9%, Python 25.9%, JavaScript 16.2%, Shell 14.0%, TypeScript 9.8%, PHP 4.2%</desc>
+  <desc id="descId">Most used languages by bytes written: Nix 30.2%, Python 25.8%, JavaScript 16.1%, Shell 13.9%, TypeScript 9.8%, PHP 4.2%</desc>
   <style>
     text { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
     .path { font-size: 11.5px; font-weight: 500; fill: #8080FF; }
@@ -73,23 +73,23 @@
       y="108"
       style="font-size: 44.0px; fill: #7e7eff"
     >Nix</text>
-    <text class="hero-key" x="24" y="132">29.9%</text>
+    <text class="hero-key" x="24" y="132">30.2%</text>
     <text class="prose" x="70.5" y="132">of all bytes written</text>
   </g>
   <g class="in" style="animation-delay: 260ms">
     <circle cx="252" cy="62" r="4" fill="#3572A5" />
     <text class="item" x="268" y="66">Python</text>
-    <text class="item-dim" x="471" y="66" text-anchor="end">25.9%</text>
+    <text class="item-dim" x="471" y="66" text-anchor="end">25.8%</text>
   </g>
   <g class="in" style="animation-delay: 320ms">
     <circle cx="252" cy="88" r="4" fill="#f1e05a" />
     <text class="item" x="268" y="92">JavaScript</text>
-    <text class="item-dim" x="471" y="92" text-anchor="end">16.2%</text>
+    <text class="item-dim" x="471" y="92" text-anchor="end">16.1%</text>
   </g>
   <g class="in" style="animation-delay: 380ms">
     <circle cx="252" cy="114" r="4" fill="#89e051" />
     <text class="item" x="268" y="118">Shell</text>
-    <text class="item-dim" x="471" y="118" text-anchor="end">14.0%</text>
+    <text class="item-dim" x="471" y="118" text-anchor="end">13.9%</text>
   </g>
   <g class="in" style="animation-delay: 440ms">
     <circle cx="252" cy="140" r="4" fill="#3178c6" />
@@ -106,12 +106,12 @@
   </clipPath>
   <g clip-path="url(#card)">
     <g clip-path="url(#strip)">
-      <rect x="0.00" y="190" width="147.90" height="5" fill="#7e7eff" />
-      <rect x="147.90" y="190" width="128.33" height="5" fill="#3572A5" />
-      <rect x="276.24" y="190" width="80.00" height="5" fill="#f1e05a" />
-      <rect x="356.24" y="190" width="69.12" height="5" fill="#89e051" />
-      <rect x="425.36" y="190" width="48.67" height="5" fill="#3178c6" />
-      <rect x="474.04" y="190" width="20.96" height="5" fill="#4F5D95" />
+      <rect x="0.00" y="190" width="149.44" height="5" fill="#7e7eff" />
+      <rect x="149.44" y="190" width="127.77" height="5" fill="#3572A5" />
+      <rect x="277.20" y="190" width="79.65" height="5" fill="#f1e05a" />
+      <rect x="356.85" y="190" width="68.82" height="5" fill="#89e051" />
+      <rect x="425.67" y="190" width="48.46" height="5" fill="#3178c6" />
+      <rect x="474.13" y="190" width="20.87" height="5" fill="#4F5D95" />
     </g>
   </g>
 </svg>
