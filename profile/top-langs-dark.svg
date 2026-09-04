@@ -8,7 +8,7 @@
   aria-labelledby="titleId descId"
 >
   <title id="titleId">&lt;tspan style=&quot;opacity: 0.62&quot;&gt;bad3r.&lt;/tspan&gt;languages</title>
-  <desc id="descId">Most used languages by bytes written: Nix 29.8%, Python 26.8%, JavaScript 15.9%, Shell 13.7%, TypeScript 9.7%, PHP 4.2%</desc>
+  <desc id="descId">Most used languages by bytes written: Nix 29.7%, Python 27.1%, JavaScript 15.8%, Shell 13.7%, TypeScript 9.6%, PHP 4.1%</desc>
   <style>
     text { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
     .path { font-size: 11.5px; font-weight: 500; fill: #8080FF; }
@@ -73,18 +73,18 @@
       y="108"
       style="font-size: 44.0px; fill: #7e7eff"
     >Nix</text>
-    <text class="hero-key" x="24" y="132">29.8%</text>
+    <text class="hero-key" x="24" y="132">29.7%</text>
     <text class="prose" x="70.5" y="132">of all bytes written</text>
   </g>
   <g class="in" style="animation-delay: 260ms">
     <circle cx="252" cy="62" r="4" fill="#3572A5" />
     <text class="item" x="268" y="66">Python</text>
-    <text class="item-dim" x="471" y="66" text-anchor="end">26.8%</text>
+    <text class="item-dim" x="471" y="66" text-anchor="end">27.1%</text>
   </g>
   <g class="in" style="animation-delay: 320ms">
     <circle cx="252" cy="88" r="4" fill="#f1e05a" />
     <text class="item" x="268" y="92">JavaScript</text>
-    <text class="item-dim" x="471" y="92" text-anchor="end">15.9%</text>
+    <text class="item-dim" x="471" y="92" text-anchor="end">15.8%</text>
   </g>
   <g class="in" style="animation-delay: 380ms">
     <circle cx="252" cy="114" r="4" fill="#89e051" />
@@ -94,24 +94,24 @@
   <g class="in" style="animation-delay: 440ms">
     <circle cx="252" cy="140" r="4" fill="#3178c6" />
     <text class="item" x="268" y="144">TypeScript</text>
-    <text class="item-dim" x="471" y="144" text-anchor="end">9.7%</text>
+    <text class="item-dim" x="471" y="144" text-anchor="end">9.6%</text>
   </g>
   <g class="in" style="animation-delay: 500ms">
     <circle cx="252" cy="166" r="4" fill="#4F5D95" />
     <text class="item" x="268" y="170">PHP</text>
-    <text class="item-dim" x="471" y="170" text-anchor="end">4.2%</text>
+    <text class="item-dim" x="471" y="170" text-anchor="end">4.1%</text>
   </g>
   <clipPath id="strip">
     <rect class="bleed" x="0" y="190" width="495" height="5" />
   </clipPath>
   <g clip-path="url(#card)">
     <g clip-path="url(#strip)">
-      <rect x="0.00" y="190" width="147.47" height="5" fill="#7e7eff" />
-      <rect x="147.47" y="190" width="132.69" height="5" fill="#3572A5" />
-      <rect x="280.15" y="190" width="78.57" height="5" fill="#f1e05a" />
-      <rect x="358.72" y="190" width="67.89" height="5" fill="#89e051" />
-      <rect x="426.61" y="190" width="47.80" height="5" fill="#3178c6" />
-      <rect x="474.41" y="190" width="20.59" height="5" fill="#4F5D95" />
+      <rect x="0.00" y="190" width="147.18" height="5" fill="#7e7eff" />
+      <rect x="147.18" y="190" width="133.91" height="5" fill="#3572A5" />
+      <rect x="281.10" y="190" width="78.20" height="5" fill="#f1e05a" />
+      <rect x="359.30" y="190" width="67.63" height="5" fill="#89e051" />
+      <rect x="426.93" y="190" width="47.58" height="5" fill="#3178c6" />
+      <rect x="474.51" y="190" width="20.49" height="5" fill="#4F5D95" />
     </g>
   </g>
 </svg>
