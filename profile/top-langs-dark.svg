@@ -106,11 +106,11 @@
   </clipPath>
   <g clip-path="url(#card)">
     <g clip-path="url(#strip)">
-      <rect x="0.00" y="190" width="152.43" height="5" fill="#7e7eff" />
-      <rect x="152.43" y="190" width="131.18" height="5" fill="#3572A5" />
-      <rect x="283.61" y="190" width="76.69" height="5" fill="#f1e05a" />
-      <rect x="360.30" y="190" width="67.96" height="5" fill="#89e051" />
-      <rect x="428.26" y="190" width="46.65" height="5" fill="#3178c6" />
+      <rect x="0.00" y="190" width="152.41" height="5" fill="#7e7eff" />
+      <rect x="152.41" y="190" width="131.19" height="5" fill="#3572A5" />
+      <rect x="283.60" y="190" width="76.69" height="5" fill="#f1e05a" />
+      <rect x="360.29" y="190" width="67.96" height="5" fill="#89e051" />
+      <rect x="428.25" y="190" width="46.65" height="5" fill="#3178c6" />
       <rect x="474.91" y="190" width="20.09" height="5" fill="#4F5D95" />
     </g>
   </g>
