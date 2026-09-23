@@ -8,7 +8,7 @@
   aria-labelledby="titleId descId"
 >
   <title id="titleId">&lt;tspan style=&quot;opacity: 0.62&quot;&gt;bad3r.&lt;/tspan&gt;languages</title>
-  <desc id="descId">Most used languages by bytes written: Nix 31.8%, Python 26.1%, JavaScript 15.8%, Shell 12.5%, TypeScript 9.6%, PHP 4.1%</desc>
+  <desc id="descId">Most used languages by bytes written: Nix 31.8%, Python 26.1%, JavaScript 15.8%, Shell 12.6%, TypeScript 9.6%, PHP 4.1%</desc>
   <style>
     text { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
     .path { font-size: 11.5px; font-weight: 500; fill: #5654E0; }
@@ -89,7 +89,7 @@
   <g class="in" style="animation-delay: 380ms">
     <circle cx="252" cy="114" r="4" fill="#89e051" />
     <text class="item" x="268" y="118">Shell</text>
-    <text class="item-dim" x="471" y="118" text-anchor="end">12.5%</text>
+    <text class="item-dim" x="471" y="118" text-anchor="end">12.6%</text>
   </g>
   <g class="in" style="animation-delay: 440ms">
     <circle cx="252" cy="140" r="4" fill="#3178c6" />
@@ -106,12 +106,12 @@
   </clipPath>
   <g clip-path="url(#card)">
     <g clip-path="url(#strip)">
-      <rect x="0.00" y="190" width="157.53" height="5" fill="#7e7eff" />
-      <rect x="157.53" y="190" width="129.22" height="5" fill="#3572A5" />
-      <rect x="286.75" y="190" width="78.18" height="5" fill="#f1e05a" />
-      <rect x="364.93" y="190" width="62.03" height="5" fill="#89e051" />
-      <rect x="426.96" y="190" width="47.56" height="5" fill="#3178c6" />
-      <rect x="474.52" y="190" width="20.48" height="5" fill="#4F5D95" />
+      <rect x="0.00" y="190" width="157.61" height="5" fill="#7e7eff" />
+      <rect x="157.61" y="190" width="129.01" height="5" fill="#3572A5" />
+      <rect x="286.62" y="190" width="78.05" height="5" fill="#f1e05a" />
+      <rect x="364.68" y="190" width="62.39" height="5" fill="#89e051" />
+      <rect x="427.07" y="190" width="47.48" height="5" fill="#3178c6" />
+      <rect x="474.55" y="190" width="20.45" height="5" fill="#4F5D95" />
     </g>
   </g>
 </svg>
