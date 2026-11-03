@@ -3,12 +3,8 @@
 # requires-python = ">=3.11"
 # dependencies = []
 # ///
-"""Render the profile README cards committed under profile/.
-
-Stdlib only and no third-party services: the GitHub GraphQL API is the single
-external dependency, so the workflow can run this with the runner's system
-interpreter.
-"""
+"""Render the profile README cards in profile/. Stdlib only, so CI can run it
+with the system Python."""
 
 from __future__ import annotations
 
@@ -26,74 +22,53 @@ from pathlib import Path
 
 GRAPHQL_ENDPOINT = "https://api.github.com/graphql"
 FALLBACK_LANGUAGE_COLOR = "#858585"
-# GitHub's repository language bar paints the remainder in this colour in both themes.
+# GitHub's colour for "Other" in repository language bars.
 OTHER_LANGUAGE_COLOR = "#ededed"
 
-# The cards sit in the profile README box, whose content column is 846px wide
-# at desktop widths, and follow the Pinned cards below it: 1px border, 6px
-# radius, 16px padding.
+# README column width on desktop; padding matches the Pinned cards.
 CARD_WIDTH = 846
 PAD = 16
 CONTENT = CARD_WIDTH - 2 * PAD
 
-# Primer's sans stack. GitHub serves no webfont for it, so README text and these
-# cards resolve to the same installed face on every visitor's machine.
+# Primer's sans stack. GitHub loads no webfont, so this matches README text.
 SANS = (
     "'Mona Sans VF', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', "
     "Helvetica, Arial, sans-serif"
 )
 
-# Primer primitives 11.10.0, functional themes dark.css ("Dark default") and
-# light.css ("Light default").
-THEMES = {
-    "dark": {
-        "canvas": "#0d1117",  # bgColor-default
-        "border": "#3d444d",  # borderColor-default
-        "fg": "#f0f6fc",  # fgColor-default
-        "muted": "#9198a1",  # fgColor-muted
-        "grid": "#3d444db3",  # borderColor-muted
-        "ring": "#ffffff26",  # borderColor-translucent
-        "bar": "#2ea043",  # contribution-default-bgColor-3
-        "share_bar": "#656c76",  # progressBar-bgColor-neutral
-    },
-    "light": {
-        "canvas": "#ffffff",
-        "border": "#d1d9e0",
-        "fg": "#1f2328",
-        "muted": "#59636e",
-        "grid": "#d1d9e0b3",
-        "ring": "#1f232826",
-        "bar": "#2da44e",
-        "share_bar": "#59636e",
-    },
+# Colours and icons come from theme/. Each role names a Primer token.
+THEME_DIR = Path(__file__).resolve().parent.parent / "theme"
+ROLES = {
+    "canvas": "bgColor-default",
+    "border": "borderColor-default",
+    "fg": "fgColor-default",
+    "muted": "fgColor-muted",
+    "grid": "borderColor-muted",
+    "ring": "borderColor-translucent",
+    "bar": "contribution-default-bgColor-3",
 }
+ICONS = ("git-commit", "git-pull-request", "issue-opened", "star")
 
-# 16px Octicons 19.42.0 (MIT, GitHub Inc.).
-OCTICONS = {
-    "git-commit": (
-        '<path d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 '
-        '0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"/>'
-    ),
-    "git-pull-request": (
-        '<path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 '
-        "2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 "
-        "13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 "
-        "3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 "
-        '0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"/>'
-    ),
-    "issue-opened": (
-        '<path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/><path d="M8 0a8 8 0 1 1 0 16A8 '
-        '8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/>'
-    ),
-    "star": (
-        '<path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 '
-        "1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 "
-        "1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 "
-        "1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 "
-        ".216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 "
-        '.216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z"/>'
-    ),
-}
+
+def load_themes() -> dict[str, dict[str, str]]:
+    tokens = json.loads((THEME_DIR / "tokens.json").read_text(encoding="utf-8"))
+    return {
+        variant: {role: tokens[variant][token] for role, token in ROLES.items()}
+        for variant in ("dark", "light")
+    }
+
+
+def load_octicons() -> dict[str, str]:
+    """Inner markup of each 16px icon."""
+    icons = {}
+    for name in ICONS:
+        svg = (THEME_DIR / "icons" / f"{name}-16.svg").read_text(encoding="utf-8").strip()
+        icons[name] = svg[svg.index(">") + 1 : svg.rindex("</svg>")]
+    return icons
+
+
+THEMES = load_themes()
+OCTICONS = load_octicons()
 
 
 PROFILE_QUERY = """
@@ -167,7 +142,7 @@ def graphql(token: str, query: str, variables: dict, *, attempts: int = 4) -> di
                 body = json.load(response)
         except urllib.error.HTTPError as error:
             detail = error.read().decode("utf-8", "replace").strip()[:400]
-            # 403 here is almost always secondary rate limiting, not a scope problem.
+            # 403 here is usually secondary rate limiting.
             if error.code not in (403, 429, 500, 502, 503, 504):
                 raise GitHubError(f"HTTP {error.code} from GraphQL API: {detail}") from error
             last_error = GitHubError(f"HTTP {error.code} from GraphQL API: {detail}")
@@ -228,15 +203,10 @@ def fetch_repositories(token: str, login: str) -> list[Repository]:
 
 
 def fetch_contributions(token: str, login: str, created_at: dt.datetime, now: dt.datetime) -> dict:
-    """Collect every contribution day plus commit, review and private totals.
+    """Daily counts plus commit, review and private totals, one year per query.
 
-    contributionsCollection caps a query at one year, so this walks calendar
-    years from account creation to now.
-
-    The calendar's per-day counts cover public repositories only. Work in
-    private repositories is withheld from those days and reported solely as the
-    restrictedContributionsCount aggregate, which needs a user token to be
-    non-zero.
+    Private work is not in the daily counts, only in restrictedContributionsCount,
+    which is zero without a user token.
     """
     days: dict[str, int] = {}
     commits = 0
@@ -266,13 +236,10 @@ def fetch_contributions(token: str, login: str, created_at: dt.datetime, now: dt
 
 
 def compute_streaks(days: dict[str, int], private: int = 0) -> Streaks:
-    """Fold the contribution calendar into total, current and longest streaks.
+    """Total, current and longest streaks.
 
-    The final day never breaks the current streak: the card is generated before
-    the day is over.
-
-    `private` is added to the headline total only. GitHub does not say which
-    days private contributions fall on, so they cannot extend a streak.
+    Today never breaks the current streak, since it is not over yet. `private`
+    only adds to the total: GitHub does not say which days it falls on.
     """
     if not days:
         raise GitHubError("Contribution calendar came back empty")
@@ -318,11 +285,7 @@ def compute_streaks(days: dict[str, int], private: int = 0) -> Streaks:
 def aggregate_languages(
     repositories: list[Repository], hidden: set[str], excluded: set[str], count: int
 ) -> list[tuple[str, str, float]]:
-    """Top `count` languages as (name, colour, share), the rest folded into Other.
-
-    Shares are of every byte left after the filters, as on a repository page,
-    so they sum to one only with the Other entry.
-    """
+    """Top `count` languages as (name, colour, share) of all bytes, plus Other."""
     totals: dict[str, list] = {}
     for repository in repositories:
         if repository.name.lower() in excluded:
@@ -383,11 +346,7 @@ def group_digits(value: int) -> str:
 
 
 def weekly_series(days: dict[str, int], weeks: int = 52) -> list[tuple[dt.date, int]]:
-    """(first day, contribution total) for each of the most recent `weeks` weeks.
-
-    Weeks end on the last calendar day, so the final bucket is the trailing
-    seven days rather than a partial calendar week.
-    """
+    """(first day, total) per week; the last week ends on the last day."""
     ordered = sorted(days.items())
     end = dt.date.fromisoformat(ordered[-1][0])
     start = end - dt.timedelta(days=weeks * 7 - 1)
@@ -404,7 +363,7 @@ def plural(count: int, noun: str, nouns: str | None = None) -> str:
 
 
 def svg_document(*, theme: dict, height: int, title: str, description: str, body: str) -> str:
-    """The Box every card shares, drawn like the Pinned cards on the same page."""
+    """The bordered box every card shares."""
     return f"""<svg
   xmlns="http://www.w3.org/2000/svg"
   width="{CARD_WIDTH}"
@@ -435,9 +394,7 @@ def svg_document(*, theme: dict, height: int, title: str, description: str, body
 """
 
 
-# Advance widths in thousandths of an em, from Arial: Helvetica-metric faces are
-# the most common resolution of the stack, and Segoe UI and SF land within a
-# few percent of it.
+# Arial advance widths in thousandths of an em; Segoe UI and SF are close.
 _ADVANCE = {
     **dict.fromkeys("ijl", 222),
     "'": 191,
@@ -456,11 +413,7 @@ _ADVANCE = {
 
 
 def text_width(text: str, size: float, *, bold: bool = False) -> float:
-    """Approximate advance width of `text`, for laying out inline runs.
-
-    The visitor's browser renders the SVG with whatever face the stack resolves
-    to, so this only has to be close enough to keep gaps even.
-    """
+    """Approximate text width. An SVG image cannot measure its own text."""
     em = sum(_ADVANCE.get(char, 556) for char in text) / 1000
     return em * size * (1.04 if bold else 1.0)
 
@@ -470,7 +423,7 @@ def octicon(name: str, x: float, y: float, color: str) -> str:
 
 
 def compact(value: int) -> str:
-    """Stat values in GitHub's short form once they reach five digits: 10.4k, 1.2M."""
+    """GitHub-style short numbers from five digits: 10.4k, 1.2M."""
     if value < 10_000:
         return group_digits(value)
     if value < 999_950:
@@ -479,7 +432,7 @@ def compact(value: int) -> str:
 
 
 def nice_step(peak: int, intervals: int = 4) -> int:
-    """A 1/2/5 tick step giving at most `intervals` gridlines up to `peak`."""
+    """A 1/2/5 step giving at most `intervals` gridlines up to `peak`."""
     raw = max(peak, 1) / intervals
     magnitude = 10 ** (len(str(int(raw))) - 1)
     for factor in (1, 2, 5, 10):
@@ -489,7 +442,7 @@ def nice_step(peak: int, intervals: int = 4) -> int:
 
 
 def column_path(x: float, top: float, width: float, bottom: float, radius: float = 4) -> str:
-    """A column with a rounded data end and a square foot on the baseline."""
+    """Column with a rounded top and a square base."""
     r = min(radius, width / 2, bottom - top)
     return (
         f"M{x:.2f} {bottom:.2f}V{top + r:.2f}A{r:.2f} {r:.2f} 0 0 1 {x + r:.2f} {top:.2f}"
@@ -499,7 +452,7 @@ def column_path(x: float, top: float, width: float, bottom: float, radius: float
 
 
 def bar_path(left: float, y: float, length: float, height: float, radius: float = 4) -> str:
-    """A horizontal bar with a square foot on the left baseline and a rounded tip."""
+    """Bar with a square left end and a rounded tip."""
     r = min(radius, height / 2, length)
     right = left + length
     return (
@@ -515,9 +468,12 @@ def render_stats_card(*, theme_name: str, stats: dict) -> str:
     row_y = 98
     height = 120
 
-    # Private work is part of the total but not of the public counts below it,
-    # so it is named in the same sentence as the total.
+    # Private work is in the total but not the public counts, so name it there.
     private = f", {group_digits(stats['private'])} in private repositories" if stats["private"] else ""
+    # Rank as a Primer Label pill, centred on the hero numerals.
+    label = f"Rank {stats['rank_level']}"
+    label_width = text_width(label, 12) + 16
+    label_x = CARD_WIDTH - PAD - label_width
     parts = [
         (
             f'  <text x="{PAD}" y="{hero_y}">'
@@ -525,6 +481,14 @@ def render_stats_card(*, theme_name: str, stats: dict) -> str:
             f'<tspan class="muted" style="font-size: 16px" dx="10">'
             f"contributions since {stats['since']}{private}</tspan>"
             "</text>"
+        ),
+        (
+            f'  <rect x="{label_x:.1f}" y="{hero_y - 27}" width="{label_width:.1f}" height="20" '
+            f'rx="10" fill="none" stroke="{theme["border"]}" />'
+        ),
+        (
+            f'  <text class="small muted" x="{label_x + label_width / 2:.1f}" y="{hero_y - 13}" '
+            f'text-anchor="middle" style="font-weight: 500">{escape(label)}</text>'
         ),
     ]
 
@@ -539,8 +503,7 @@ def render_stats_card(*, theme_name: str, stats: dict) -> str:
         number = compact(value)
         width = 24 + text_width(number, 14, bold=True) + 4 + text_width(word, 14)
         entries.append((icon, number, word, width))
-    # Inline like a repository's metadata row: fixed gaps rather than columns,
-    # tightened only if the values outgrow the card.
+    # Fixed gaps, like a repository's metadata row; tighter only if needed.
     gap = min(36.0, max(16.0, (CONTENT - sum(e[3] for e in entries)) / (len(entries) - 1)))
     x = float(PAD)
     for icon, number, word, width in entries:
@@ -558,7 +521,8 @@ def render_stats_card(*, theme_name: str, stats: dict) -> str:
         description=(
             f"{stats['contributions']} contributions since {stats['since']}, "
             f"{stats['private']} of them in private repositories. {stats['commits']} commits, "
-            f"{stats['prs']} pull requests, {stats['issues']} issues, {stats['stars']} stars."
+            f"{stats['prs']} pull requests, {stats['issues']} issues, {stats['stars']} stars, "
+            f"rank {stats['rank_level']}."
         ),
         body="\n".join(parts),
     )
@@ -567,13 +531,7 @@ def render_stats_card(*, theme_name: str, stats: dict) -> str:
 def render_top_languages_card(
     *, theme_name: str, languages: list[tuple[str, str, float]], repo_count: int
 ) -> str:
-    """Ranked bars in GitHub's neutral progress grey, so close shares stay comparable
-    on a shared baseline and the contribution green stays the page's only accent.
-
-    GitHub's language colours are kept as a dot beside each name, where readers
-    recognise them, but never carry identity: the palette was not built for
-    charts and several neighbours collapse under colour vision deficiency.
-    """
+    """Ranked bars in each language's GitHub colour, named beside each bar."""
     theme = THEMES[theme_name]
     heading_y = 33
     row_y = 66
@@ -601,7 +559,10 @@ def render_top_languages_card(
             [
                 f'  <circle cx="{PAD + 4}" cy="{y - 5}" r="4" fill="{color}" stroke="{theme["ring"]}" />',
                 f'  <text class="strong" x="{PAD + 16}" y="{y}">{escape(name)}</text>',
-                f'  <path d="{bar_path(bar_x, y - 5 - bar_h / 2, length, bar_h)}" fill="{theme["share_bar"]}" />',
+                (
+                    f'  <path d="{bar_path(bar_x, y - 5 - bar_h / 2, length, bar_h)}" '
+                    f'fill="{color}" stroke="{theme["ring"]}" />'
+                ),
                 f'  <text class="muted" x="{bar_x + length + 8:.1f}" y="{y}">{share * 100:.1f}%</text>',
             ]
         )
@@ -620,7 +581,7 @@ def render_top_languages_card(
 def render_activity_card(
     *, theme_name: str, streaks: Streaks, weeks: list[tuple[dt.date, int]]
 ) -> str:
-    """A year of weekly totals in the contribution graph's own green."""
+    """Weekly totals for a year, in the contribution graph's green."""
     theme = THEMES[theme_name]
     heading_y = 33
     plot_top = 72
@@ -633,8 +594,7 @@ def render_activity_card(
     peak_index = values.index(peak) if peak else -1
     year_total = sum(values)
 
-    # The plot tops out at the busiest week, which carries its own label; the
-    # gridlines sit on clean values beneath it so they never crowd that label.
+    # Scale to the busiest week (labelled); gridlines sit on round values below it.
     ceiling = max(peak, 1)
     ticks = list(range(0, peak + 1, nice_step(peak))) if peak else [0]
     plot_left = PAD + max(text_width(group_digits(tick), 12) for tick in ticks) + 8
@@ -663,7 +623,6 @@ def render_activity_card(
         + "</text>",
     ]
 
-    # Recessive value axis: solid hairlines one step off the surface.
     for tick in ticks:
         y = y_of(tick)
         parts.append(
@@ -692,7 +651,7 @@ def render_activity_card(
             f'text-anchor="{anchor}">{group_digits(peak)}</text>'
         )
 
-    # Label a month on its first week, as the contribution calendar does.
+    # Label each month at its first week, like the contribution calendar.
     last_label_x = -1e9
     for index, (start, _) in enumerate(weeks):
         if index and start.month == weeks[index - 1][0].month:
@@ -763,8 +722,7 @@ def write_cards(
     stars = sum(repository.stars for repository in repositories)
     issues = profile["openIssues"]["totalCount"] + profile["closedIssues"]["totalCount"]
     prs = profile["pullRequests"]["totalCount"]
-    # The rank models overall activity, so private work counts toward it even
-    # though the card reports it on its own column.
+    # The rank counts private work too.
     rank_level, rank_percentile = calculate_rank(
         commits=contributions["commits"] + private,
         prs=prs,
@@ -780,6 +738,7 @@ def write_cards(
         "contributions": streaks.total_contributions,
         "prs": prs,
         "issues": issues,
+        "rank_level": rank_level,
         "since": f"{created_at:%B %Y}",
     }
     languages = aggregate_languages(

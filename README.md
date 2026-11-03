@@ -4,14 +4,14 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./profile/stats-dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="./profile/stats-light.svg">
-    <img src="./profile/stats-light.svg" alt="Total contributions, with commits, pull requests, issues, stars and private contributions">
+    <img src="./profile/stats-light.svg" alt="Total contributions and rank, with commits, pull requests, issues and stars">
   </picture>
 </p>
 <p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./profile/top-langs-dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="./profile/top-langs-light.svg">
-    <img src="./profile/top-langs-light.svg" alt="Languages by bytes written across all repositories">
+    <img src="./profile/top-langs-light.svg" alt="Languages by share of bytes across all repositories">
   </picture>
 </p>
 <p>

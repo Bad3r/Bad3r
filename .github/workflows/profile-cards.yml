@@ -8,6 +8,7 @@ on:
     paths:
       - .github/workflows/profile-cards.yml
       - scripts/generate_cards.py
+      - theme
   workflow_dispatch:
 
 concurrency:
@@ -22,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          submodules: true
 
       - name: Generate cards
         env:
