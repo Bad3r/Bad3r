@@ -1,12 +1,23 @@
 ### Hello friend,
 
-<p align="center">
-  <img src="./profile/stats-dark.svg#gh-dark-mode-only" alt="Public and private contribution totals, pull requests, issues and stars earned">
-  <img src="./profile/stats-light.svg#gh-light-mode-only" alt="Public and private contribution totals, pull requests, issues and stars earned">
-  <br>
-  <img src="./profile/top-langs-dark.svg#gh-dark-mode-only" alt="Most used languages by bytes written">
-  <img src="./profile/top-langs-light.svg#gh-light-mode-only" alt="Most used languages by bytes written">
-  <br>
-  <img src="./profile/activity-dark.svg#gh-dark-mode-only" alt="A year of weekly contribution activity, with current and longest streaks">
-  <img src="./profile/activity-light.svg#gh-light-mode-only" alt="A year of weekly contribution activity, with current and longest streaks">
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./profile/stats-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./profile/stats-light.svg">
+    <img src="./profile/stats-light.svg" alt="Total contributions, with commits, pull requests, issues, stars and private contributions">
+  </picture>
+</p>
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./profile/top-langs-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./profile/top-langs-light.svg">
+    <img src="./profile/top-langs-light.svg" alt="Languages by bytes written across all repositories">
+  </picture>
+</p>
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./profile/activity-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./profile/activity-light.svg">
+    <img src="./profile/activity-light.svg" alt="Weekly contributions over the last year, with current and longest streaks">
+  </picture>
 </p>
