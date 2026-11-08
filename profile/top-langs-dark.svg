@@ -31,26 +31,26 @@
   <text class="muted" x="787.2" y="66">25.3%</text>
   <circle cx="20" cy="85" r="4" fill="#7e7eff" stroke="#ffffff26" />
   <text class="strong" x="32" y="90">Nix</text>
-  <path d="M117.58 81.00H723.57A4.00 4.00 0 0 1 727.57 85.00V85.00A4.00 4.00 0 0 1 723.57 89.00H117.58Z" fill="#7e7eff" stroke="#ffffff26" />
-  <text class="muted" x="735.6" y="90">23.3%</text>
+  <path d="M117.58 81.00H723.93A4.00 4.00 0 0 1 727.93 85.00V85.00A4.00 4.00 0 0 1 723.93 89.00H117.58Z" fill="#7e7eff" stroke="#ffffff26" />
+  <text class="muted" x="735.9" y="90">23.3%</text>
   <circle cx="20" cy="109" r="4" fill="#7355dd" stroke="#ffffff26" />
   <text class="strong" x="32" y="114">C#</text>
-  <path d="M117.58 105.00H467.78A4.00 4.00 0 0 1 471.78 109.00V109.00A4.00 4.00 0 0 1 467.78 113.00H117.58Z" fill="#7355dd" stroke="#ffffff26" />
-  <text class="muted" x="479.8" y="114">13.5%</text>
+  <path d="M117.58 105.00H467.61A4.00 4.00 0 0 1 471.61 109.00V109.00A4.00 4.00 0 0 1 467.61 113.00H117.58Z" fill="#7355dd" stroke="#ffffff26" />
+  <text class="muted" x="479.6" y="114">13.5%</text>
   <circle cx="20" cy="133" r="4" fill="#3178c6" stroke="#ffffff26" />
   <text class="strong" x="32" y="138">TypeScript</text>
-  <path d="M117.58 129.00H399.44A4.00 4.00 0 0 1 403.44 133.00V133.00A4.00 4.00 0 0 1 399.44 137.00H117.58Z" fill="#3178c6" stroke="#ffffff26" />
-  <text class="muted" x="411.4" y="138">10.9%</text>
+  <path d="M117.58 129.00H399.30A4.00 4.00 0 0 1 403.30 133.00V133.00A4.00 4.00 0 0 1 399.30 137.00H117.58Z" fill="#3178c6" stroke="#ffffff26" />
+  <text class="muted" x="411.3" y="138">10.9%</text>
   <circle cx="20" cy="157" r="4" fill="#f1e05a" stroke="#ffffff26" />
   <text class="strong" x="32" y="162">JavaScript</text>
-  <path d="M117.58 153.00H394.09A4.00 4.00 0 0 1 398.09 157.00V157.00A4.00 4.00 0 0 1 394.09 161.00H117.58Z" fill="#f1e05a" stroke="#ffffff26" />
-  <text class="muted" x="406.1" y="162">10.7%</text>
+  <path d="M117.58 153.00H393.95A4.00 4.00 0 0 1 397.95 157.00V157.00A4.00 4.00 0 0 1 393.95 161.00H117.58Z" fill="#f1e05a" stroke="#ffffff26" />
+  <text class="muted" x="406.0" y="162">10.7%</text>
   <circle cx="20" cy="181" r="4" fill="#89e051" stroke="#ffffff26" />
   <text class="strong" x="32" y="186">Shell</text>
-  <path d="M117.58 177.00H344.17A4.00 4.00 0 0 1 348.17 181.00V181.00A4.00 4.00 0 0 1 344.17 185.00H117.58Z" fill="#89e051" stroke="#ffffff26" />
-  <text class="muted" x="356.2" y="186">8.8%</text>
+  <path d="M117.58 177.00H344.06A4.00 4.00 0 0 1 348.06 181.00V181.00A4.00 4.00 0 0 1 344.06 185.00H117.58Z" fill="#89e051" stroke="#ffffff26" />
+  <text class="muted" x="356.1" y="186">8.8%</text>
   <circle cx="20" cy="205" r="4" fill="#ededed" stroke="#ffffff26" />
   <text class="strong" x="32" y="210">Other</text>
-  <path d="M117.58 201.00H305.15A4.00 4.00 0 0 1 309.15 205.00V205.00A4.00 4.00 0 0 1 305.15 209.00H117.58Z" fill="#ededed" stroke="#ffffff26" />
+  <path d="M117.58 201.00H305.06A4.00 4.00 0 0 1 309.06 205.00V205.00A4.00 4.00 0 0 1 305.06 209.00H117.58Z" fill="#ededed" stroke="#ffffff26" />
   <text class="muted" x="317.1" y="210">7.3%</text>
 </svg>
