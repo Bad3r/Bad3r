@@ -7,7 +7,7 @@
   aria-labelledby="title desc"
 >
   <title id="title">Languages</title>
-  <desc id="desc">Languages by bytes across 89 repositories: Python 25.3%, Nix 23.3%, C# 13.5%, TypeScript 10.9%, JavaScript 10.7%, Shell 8.8%, Other 7.3%.</desc>
+  <desc id="desc">Languages by bytes across 90 repositories: Python 31.4%, C++ 23.8%, C# 12.6%, TypeScript 11.3%, Nix 8.7%, JavaScript 4.4%, Other 7.8%.</desc>
   <style>
     text { font-family: 'Mona Sans VF', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; font-size: 14px; fill: #f0f6fc; }
     .muted { fill: #9198a1; }
@@ -24,33 +24,33 @@
     stroke="#3d444d"
   />
   <text class="strong" x="16" y="33" style="font-size: 16px">Languages</text>
-  <text class="muted" x="830" y="33" text-anchor="end">Across 89 repositories</text>
+  <text class="muted" x="830" y="33" text-anchor="end">Across 90 repositories</text>
   <circle cx="20" cy="61" r="4" fill="#3572A5" stroke="#ffffff26" />
   <text class="strong" x="32" y="66">Python</text>
   <path d="M117.58 57.00H775.19A4.00 4.00 0 0 1 779.19 61.00V61.00A4.00 4.00 0 0 1 775.19 65.00H117.58Z" fill="#3572A5" stroke="#ffffff26" />
-  <text class="muted" x="787.2" y="66">25.3%</text>
-  <circle cx="20" cy="85" r="4" fill="#7e7eff" stroke="#ffffff26" />
-  <text class="strong" x="32" y="90">Nix</text>
-  <path d="M117.58 81.00H723.93A4.00 4.00 0 0 1 727.93 85.00V85.00A4.00 4.00 0 0 1 723.93 89.00H117.58Z" fill="#7e7eff" stroke="#ffffff26" />
-  <text class="muted" x="735.9" y="90">23.3%</text>
+  <text class="muted" x="787.2" y="66">31.4%</text>
+  <circle cx="20" cy="85" r="4" fill="#f34b7d" stroke="#ffffff26" />
+  <text class="strong" x="32" y="90">C++</text>
+  <path d="M117.58 81.00H615.04A4.00 4.00 0 0 1 619.04 85.00V85.00A4.00 4.00 0 0 1 615.04 89.00H117.58Z" fill="#f34b7d" stroke="#ffffff26" />
+  <text class="muted" x="627.0" y="90">23.8%</text>
   <circle cx="20" cy="109" r="4" fill="#7355dd" stroke="#ffffff26" />
   <text class="strong" x="32" y="114">C#</text>
-  <path d="M117.58 105.00H467.61A4.00 4.00 0 0 1 471.61 109.00V109.00A4.00 4.00 0 0 1 467.61 113.00H117.58Z" fill="#7355dd" stroke="#ffffff26" />
-  <text class="muted" x="479.6" y="114">13.5%</text>
+  <path d="M117.58 105.00H378.93A4.00 4.00 0 0 1 382.93 109.00V109.00A4.00 4.00 0 0 1 378.93 113.00H117.58Z" fill="#7355dd" stroke="#ffffff26" />
+  <text class="muted" x="390.9" y="114">12.6%</text>
   <circle cx="20" cy="133" r="4" fill="#3178c6" stroke="#ffffff26" />
   <text class="strong" x="32" y="138">TypeScript</text>
-  <path d="M117.58 129.00H399.30A4.00 4.00 0 0 1 403.30 133.00V133.00A4.00 4.00 0 0 1 399.30 137.00H117.58Z" fill="#3178c6" stroke="#ffffff26" />
-  <text class="muted" x="411.3" y="138">10.9%</text>
-  <circle cx="20" cy="157" r="4" fill="#f1e05a" stroke="#ffffff26" />
-  <text class="strong" x="32" y="162">JavaScript</text>
-  <path d="M117.58 153.00H393.95A4.00 4.00 0 0 1 397.95 157.00V157.00A4.00 4.00 0 0 1 393.95 161.00H117.58Z" fill="#f1e05a" stroke="#ffffff26" />
-  <text class="muted" x="406.0" y="162">10.7%</text>
-  <circle cx="20" cy="181" r="4" fill="#89e051" stroke="#ffffff26" />
-  <text class="strong" x="32" y="186">Shell</text>
-  <path d="M117.58 177.00H344.06A4.00 4.00 0 0 1 348.06 181.00V181.00A4.00 4.00 0 0 1 344.06 185.00H117.58Z" fill="#89e051" stroke="#ffffff26" />
-  <text class="muted" x="356.1" y="186">8.8%</text>
+  <path d="M117.58 129.00H351.02A4.00 4.00 0 0 1 355.02 133.00V133.00A4.00 4.00 0 0 1 351.02 137.00H117.58Z" fill="#3178c6" stroke="#ffffff26" />
+  <text class="muted" x="363.0" y="138">11.3%</text>
+  <circle cx="20" cy="157" r="4" fill="#7e7eff" stroke="#ffffff26" />
+  <text class="strong" x="32" y="162">Nix</text>
+  <path d="M117.58 153.00H296.74A4.00 4.00 0 0 1 300.74 157.00V157.00A4.00 4.00 0 0 1 296.74 161.00H117.58Z" fill="#7e7eff" stroke="#ffffff26" />
+  <text class="muted" x="308.7" y="162">8.7%</text>
+  <circle cx="20" cy="181" r="4" fill="#f1e05a" stroke="#ffffff26" />
+  <text class="strong" x="32" y="186">JavaScript</text>
+  <path d="M117.58 177.00H205.55A4.00 4.00 0 0 1 209.55 181.00V181.00A4.00 4.00 0 0 1 205.55 185.00H117.58Z" fill="#f1e05a" stroke="#ffffff26" />
+  <text class="muted" x="217.5" y="186">4.4%</text>
   <circle cx="20" cy="205" r="4" fill="#ededed" stroke="#ffffff26" />
   <text class="strong" x="32" y="210">Other</text>
-  <path d="M117.58 201.00H305.06A4.00 4.00 0 0 1 309.06 205.00V205.00A4.00 4.00 0 0 1 305.06 209.00H117.58Z" fill="#ededed" stroke="#ffffff26" />
-  <text class="muted" x="317.1" y="210">7.3%</text>
+  <path d="M117.58 201.00H277.10A4.00 4.00 0 0 1 281.10 205.00V205.00A4.00 4.00 0 0 1 277.10 209.00H117.58Z" fill="#ededed" stroke="#ffffff26" />
+  <text class="muted" x="289.1" y="210">7.8%</text>
 </svg>
