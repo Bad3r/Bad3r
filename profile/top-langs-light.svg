@@ -7,7 +7,7 @@
   aria-labelledby="title desc"
 >
   <title id="title">Languages</title>
-  <desc id="desc">Languages by bytes across 90 repositories: Python 28.6%, Rust 23.8%, C++ 16.6%, C# 8.7%, TypeScript 7.8%, Nix 6.0%, Other 8.6%.</desc>
+  <desc id="desc">Languages by bytes across 90 repositories: Python 28.6%, Rust 23.8%, C++ 16.6%, C# 8.7%, TypeScript 7.8%, Nix 5.9%, Other 8.6%.</desc>
   <style>
     text { font-family: 'Mona Sans VF', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; font-size: 14px; fill: #1f2328; }
     .muted { fill: #59636e; }
@@ -47,8 +47,8 @@
   <text class="muted" x="307.1" y="162">7.8%</text>
   <circle cx="20" cy="181" r="4" fill="#7e7eff" stroke="#1f232826" />
   <text class="strong" x="32" y="186">Nix</text>
-  <path d="M117.58 177.00H251.36A4.00 4.00 0 0 1 255.36 181.00V181.00A4.00 4.00 0 0 1 251.36 185.00H117.58Z" fill="#7e7eff" stroke="#1f232826" />
-  <text class="muted" x="263.4" y="186">6.0%</text>
+  <path d="M117.58 177.00H251.26A4.00 4.00 0 0 1 255.26 181.00V181.00A4.00 4.00 0 0 1 251.26 185.00H117.58Z" fill="#7e7eff" stroke="#1f232826" />
+  <text class="muted" x="263.3" y="186">5.9%</text>
   <circle cx="20" cy="205" r="4" fill="#ededed" stroke="#1f232826" />
   <text class="strong" x="32" y="210">Other</text>
   <path d="M117.58 201.00H312.74A4.00 4.00 0 0 1 316.74 205.00V205.00A4.00 4.00 0 0 1 312.74 209.00H117.58Z" fill="#ededed" stroke="#1f232826" />
