@@ -47,10 +47,10 @@
   <text class="muted" x="413.9" y="162">10.5%</text>
   <circle cx="20" cy="181" r="4" fill="#7e7eff" stroke="#ffffff26" />
   <text class="strong" x="32" y="186">Nix</text>
-  <path d="M117.58 177.00H348.51A4.00 4.00 0 0 1 352.51 181.00V181.00A4.00 4.00 0 0 1 348.51 185.00H117.58Z" fill="#7e7eff" stroke="#ffffff26" />
-  <text class="muted" x="360.5" y="186">8.5%</text>
+  <path d="M117.58 177.00H349.02A4.00 4.00 0 0 1 353.02 181.00V181.00A4.00 4.00 0 0 1 349.02 185.00H117.58Z" fill="#7e7eff" stroke="#ffffff26" />
+  <text class="muted" x="361.0" y="186">8.5%</text>
   <circle cx="20" cy="205" r="4" fill="#ededed" stroke="#ffffff26" />
   <text class="strong" x="32" y="210">Other</text>
-  <path d="M117.58 201.00H391.49A4.00 4.00 0 0 1 395.49 205.00V205.00A4.00 4.00 0 0 1 391.49 209.00H117.58Z" fill="#ededed" stroke="#ffffff26" />
-  <text class="muted" x="403.5" y="210">10.1%</text>
+  <path d="M117.58 201.00H391.62A4.00 4.00 0 0 1 395.62 205.00V205.00A4.00 4.00 0 0 1 391.62 209.00H117.58Z" fill="#ededed" stroke="#ffffff26" />
+  <text class="muted" x="403.6" y="210">10.1%</text>
 </svg>
